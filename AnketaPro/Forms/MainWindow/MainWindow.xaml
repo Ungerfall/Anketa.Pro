@@ -1,0 +1,105 @@
+﻿<Window x:Class="AnketaPro.Forms.MainWindow.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:AnketaPro.Converters"
+        Title="Anketa.Pro" Height="600" Width="800"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <local:MarginConverter x:Key="MarginConverter"></local:MarginConverter>
+        <local:StackPanelMaxWidthConverter x:Key="StackPanelMaxWidthConverter"></local:StackPanelMaxWidthConverter>
+        <Style x:Key="SP_Style" TargetType="StackPanel">
+            <Setter Property="Visibility" Value="Hidden"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsChecked, ElementName=ToolBoxTButton}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+            <Style.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="Margin" Value="5,5,5,0"></Setter>
+                </Style>
+            </Style.Resources>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto" MaxWidth="{Binding Path=ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, Converter={StaticResource StackPanelMaxWidthConverter}}" MinWidth="20"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <GridSplitter x:Name="GSplit" Grid.Row="2" Grid.Column="1" Width="5"
+                      VerticalAlignment="Stretch" HorizontalAlignment="Center">
+            <GridSplitter.Style>
+                <Style TargetType="GridSplitter">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsChecked, ElementName=ToolBoxTButton}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </GridSplitter.Style>
+        </GridSplitter>
+        <Menu Grid.Row="0" Grid.ColumnSpan="4">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Новый"/>
+                <MenuItem Header="Открыть"/>
+                <Separator/>
+                <MenuItem Header="Закрыть"/>
+                <Separator/>
+                <MenuItem Header="Сохранить"/>
+                <MenuItem Header="Сохранить как..."/>
+                <Separator/>
+                <MenuItem Header="Выход" Click="MenuItemExit_Click"/>
+            </MenuItem>
+            <MenuItem Header="Правка">
+                <MenuItem Header="Отмена"/>
+                <MenuItem Header="Повтор"/>
+                <Separator/>
+                <MenuItem Header="Очистить"/>
+            </MenuItem>
+            <MenuItem Header="Справка">
+                <MenuItem Header="О программе..."/>
+            </MenuItem>
+        </Menu>
+        <ToolBar x:Name="MainTB" Background="White" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded" Grid.Row="1" Grid.ColumnSpan="4">
+            <Button Content="Новый"/>
+            <Button Content="Открыть"/>
+            <Separator/>
+            <Button Content="Закрыть" Click="ButtonClose_Click"/>
+            <Separator/>
+            <Button Content="Сохранить"/>
+        </ToolBar>
+        <Canvas Background="White" x:Name="MainCanvas" Grid.Row="2" MouseLeftButtonUp="MainCanvas_MouseLeftButtonUp"></Canvas>
+        <StackPanel Style="{StaticResource SP_Style}"
+                    MinWidth="170"
+                    Background="Gray" x:Name="SP_Toolbox" 
+                    Grid.Row="2" Grid.Column="2">
+            <TextBlock Background="LightSeaGreen" Text="Инструменты"/>
+            <Button Content="Текст" Click="TextButton_Click"></Button>
+            <Button Content="Вопрос (один ответ)" Click="OneAnswer_Click"></Button>
+            <Button Content="Вопрос (несколько ответов)" Click="ManyAnswers_Click"></Button>
+            <Button Content="Изображение" Click="Image_Click"></Button>
+        </StackPanel>
+        <ToolBarTray Grid.Row="1" Grid.RowSpan="2" Grid.Column="3" Orientation="Vertical" IsLocked="True">
+            <ToolBar Margin="{Binding ElementName=MainTB, Path=ActualHeight, Converter={StaticResource MarginConverter}}" Loaded="ToolBar_Loaded_1">
+                <ToggleButton x:Name="ToolBoxTButton" Content="Инструменты">
+                    <ToggleButton.LayoutTransform>
+                        <RotateTransform Angle="90"/>
+                    </ToggleButton.LayoutTransform>
+                </ToggleButton>
+                <ToggleButton Margin="0,10,0,0" x:Name="PropsTButton" Content="Свойства">
+                    <ToggleButton.LayoutTransform>
+                        <RotateTransform Angle="90"/>
+                    </ToggleButton.LayoutTransform>
+                </ToggleButton>
+            </ToolBar>
+        </ToolBarTray>
+    </Grid>
+</Window>
