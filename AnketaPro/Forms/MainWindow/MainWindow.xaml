@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:AnketaPro.Converters"
         Title="Anketa.Pro" Height="600" Width="800"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="SingleBorderWindow">
     <Window.Resources>
         <local:MarginConverter x:Key="MarginConverter"></local:MarginConverter>
         <local:StackPanelMaxWidthConverter x:Key="StackPanelMaxWidthConverter"></local:StackPanelMaxWidthConverter>
@@ -76,7 +77,7 @@
             <Separator/>
             <Button Content="Сохранить"/>
         </ToolBar>
-        <Canvas Background="White" x:Name="MainCanvas" Grid.Row="2" MouseLeftButtonUp="MainCanvas_MouseLeftButtonUp"></Canvas>
+        <Canvas Background="White" x:Name="MainCanvas" Grid.Row="2" MouseDown="MainCanvas_MouseDown"></Canvas>
         <StackPanel Style="{StaticResource SP_Style}"
                     MinWidth="170"
                     Background="Gray" x:Name="SP_Toolbox" 

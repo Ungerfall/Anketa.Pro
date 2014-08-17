@@ -30,7 +30,7 @@ namespace AnketaPro.Forms.MainWindow
             IsImage
         };
 
-        private Conditions m_cond;
+        private Conditions m_toolbox_cond;
         private bool m_draw_condition;
         #endregion
 
@@ -41,7 +41,7 @@ namespace AnketaPro.Forms.MainWindow
         {
             InitializeComponent();
             m_draw_condition = false;
-            m_cond = Conditions.Default;
+            m_toolbox_cond = Conditions.Default;
         }
 
         private void ToolBar_Loaded(object sender, RoutedEventArgs e)
@@ -87,7 +87,7 @@ namespace AnketaPro.Forms.MainWindow
             {
                 m_draw_condition = true;
                 Mouse.OverrideCursor = Cursors.Pen;
-                m_cond = Conditions.IsText;
+                m_toolbox_cond = Conditions.IsText;
             }
         }
 
@@ -97,7 +97,7 @@ namespace AnketaPro.Forms.MainWindow
             {
                 m_draw_condition = true;
                 Mouse.OverrideCursor = Cursors.Pen;
-                m_cond = Conditions.IsManyAnswers;
+                m_toolbox_cond = Conditions.IsManyAnswers;
             }
         }
 
@@ -107,7 +107,7 @@ namespace AnketaPro.Forms.MainWindow
             {
                 m_draw_condition = true;
                 Mouse.OverrideCursor = Cursors.Pen;
-                m_cond = Conditions.IsOneAnswer;
+                m_toolbox_cond = Conditions.IsOneAnswer;
             }
         }
 
@@ -117,7 +117,7 @@ namespace AnketaPro.Forms.MainWindow
             {
                 m_draw_condition = true;
                 Mouse.OverrideCursor = Cursors.Pen;
-                m_cond = Conditions.IsImage;
+                m_toolbox_cond = Conditions.IsImage;
             }
         }
 
@@ -126,12 +126,13 @@ namespace AnketaPro.Forms.MainWindow
             MainCanvas.Children.Clear();
         }
 
-        private void MainCanvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void MainCanvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            var point = e.GetPosition(MainCanvas);
+            #region iftrue
             if (m_draw_condition)
             {
-                var point = Mouse.GetPosition(MainCanvas);
-                switch (m_cond)
+                switch (m_toolbox_cond)
                 {
                     case Conditions.IsText:
                         {
@@ -188,7 +189,7 @@ namespace AnketaPro.Forms.MainWindow
                             _dp.Children.Add(_checkbox);
                             _dp.Children.Add(_txtbox_2);
                             _btn.Content = "Добавить вариант";
-                            _btn.Click += new RoutedEventHandler(_btn_Click);
+                            _btn.Click += new RoutedEventHandler(add_btn_click);
 
                             MainCanvas.Children.Add(_textbox);
                             Canvas.SetLeft(_textbox, point.X);
@@ -242,11 +243,38 @@ namespace AnketaPro.Forms.MainWindow
                 }
                 Mouse.OverrideCursor = null;
                 m_draw_condition = false;
-                m_cond = Conditions.Default;
+                m_toolbox_cond = Conditions.Default;
+            }
+            #endregion endif
+            else
+            {
+                var a = GetVisualParent<Control>(MainCanvas);
             }
         }
 
         void _btn_Click(object sender, RoutedEventArgs e)
+        {
+            var _btn = sender as Button;
+            var left = Canvas.GetLeft(_btn);
+            var top = Canvas.GetTop(_btn);
+            var _txtbox = new TextBox();
+            var _rabiobtn = new RadioButton();
+            var _dp = new DockPanel();
+
+            _txtbox.Width = 100;
+            _txtbox.Height = 25;
+            _rabiobtn.VerticalAlignment = System.Windows.VerticalAlignment.Center;
+            _dp.Children.Add(_rabiobtn);
+            _dp.Children.Add(_txtbox);
+
+            MainCanvas.Children.Add(_dp);
+            Canvas.SetLeft(_dp, left);
+            Canvas.SetTop(_dp, top);
+            Canvas.SetLeft(_btn, left);
+            Canvas.SetTop(_btn, top + 30);
+        }
+
+        void add_btn_click(object sender, RoutedEventArgs e)
         {
             var _btn = sender as Button;
             var left = Canvas.GetLeft(_btn);
@@ -266,6 +294,14 @@ namespace AnketaPro.Forms.MainWindow
             Canvas.SetTop(_dp, top);
             Canvas.SetLeft(_btn, left);
             Canvas.SetTop(_btn, top + 30);
+        }
+
+        public T GetVisualParent<T>(DependencyObject element) where T : DependencyObject
+        {
+            while (element != null && !(element is T))
+                element = VisualTreeHelper.GetParent(element);
+
+            return (T)element;
         }
     }
 }

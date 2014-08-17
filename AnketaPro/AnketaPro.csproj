@@ -63,6 +63,7 @@
     </Compile>
     <Compile Include="Converters\MarginConverter.cs" />
     <Compile Include="Converters\StackPanelMaxWidthConverter.cs" />
+    <Compile Include="Forms\MainWindow\CloseButtonHelp.cs" />
     <Compile Include="Forms\MainWindow\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
