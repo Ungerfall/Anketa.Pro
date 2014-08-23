@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnketaPro", "AnketaPro.csproj", "{22DEBE1E-3C6E-464C-B631-137F4CED36DA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnketaSurvey", "..\AnketaSurvey\AnketaSurvey.csproj", "{727BD7FC-0FD6-4826-B808-71BABF81E2C3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{22DEBE1E-3C6E-464C-B631-137F4CED36DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22DEBE1E-3C6E-464C-B631-137F4CED36DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22DEBE1E-3C6E-464C-B631-137F4CED36DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{727BD7FC-0FD6-4826-B808-71BABF81E2C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{727BD7FC-0FD6-4826-B808-71BABF81E2C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{727BD7FC-0FD6-4826-B808-71BABF81E2C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{727BD7FC-0FD6-4826-B808-71BABF81E2C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

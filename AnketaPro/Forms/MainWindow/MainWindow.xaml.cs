@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
+using SIO = System.IO;
 
 namespace AnketaPro.Forms.MainWindow
 {
@@ -44,6 +46,7 @@ namespace AnketaPro.Forms.MainWindow
             m_toolbox_cond = Conditions.Default;
         }
 
+        //скрытие OverflowGrid и MainPanelBorder
         private void ToolBar_Loaded(object sender, RoutedEventArgs e)
         {
             ToolBar toolBar = sender as ToolBar;
@@ -60,6 +63,7 @@ namespace AnketaPro.Forms.MainWindow
             }
         }
 
+        //скрытие OverflowGrid и MainPanelBorder
         private void ToolBar_Loaded_1(object sender, RoutedEventArgs e)
         {
             ToolBar toolBar = sender as ToolBar;
@@ -137,8 +141,10 @@ namespace AnketaPro.Forms.MainWindow
                     case Conditions.IsText:
                         {
                             var _textbox = new TextBox();
-                            _textbox.Width = 100;
-                            _textbox.Height = 25;
+                            _textbox.MinWidth = 100;
+                            _textbox.VerticalAlignment = System.Windows.VerticalAlignment.Stretch;
+                            _textbox.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
+                            _textbox.AcceptsReturn = true;
                             MainCanvas.Children.Add(_textbox);
                             Canvas.SetLeft(_textbox, point.X);
                             Canvas.SetTop(_textbox, point.Y);
@@ -248,7 +254,6 @@ namespace AnketaPro.Forms.MainWindow
             #endregion endif
             else
             {
-                var a = GetVisualParent<Control>(MainCanvas);
             }
         }
 
@@ -296,12 +301,30 @@ namespace AnketaPro.Forms.MainWindow
             Canvas.SetTop(_btn, top + 30);
         }
 
-        public T GetVisualParent<T>(DependencyObject element) where T : DependencyObject
+        private void SaveSurveyClick(object sender, RoutedEventArgs e)
         {
-            while (element != null && !(element is T))
-                element = VisualTreeHelper.GetParent(element);
+            
+            var dlg = new Microsoft.Win32.SaveFileDialog();
+            SIO.Directory.CreateDirectory(System.AppDomain.CurrentDomain.BaseDirectory + "Surveys");
+            dlg.FileName = "Опрос";
+            dlg.DefaultExt = ".anktpro";
+            dlg.Filter = "AnketaProSurvey documents (.anktpro)|*.anktpro";
+            dlg.InitialDirectory = System.AppDomain.CurrentDomain.BaseDirectory + "Surveys\\";
+            dlg.RestoreDirectory = true;
+            Nullable<bool> result = dlg.ShowDialog();
 
-            return (T)element;
+            if (result == true)
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.NullValueHandling = NullValueHandling.Ignore;
+
+                using (SIO.StreamWriter sw = new SIO.StreamWriter(dlg.FileName))
+                using (JsonWriter writer = new JsonTextWriter(sw))
+                {
+                    
+                    serializer.Serialize(writer, MainCanvas.Children[0]);
+                }
+            }
         }
     }
 }

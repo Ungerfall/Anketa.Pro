@@ -65,6 +65,9 @@
                 <Separator/>
                 <MenuItem Header="Очистить"/>
             </MenuItem>
+            <MenuItem Header="Интсрументы">
+                <MenuItem Header="AnketaSurvey"></MenuItem>
+            </MenuItem>
             <MenuItem Header="Справка">
                 <MenuItem Header="О программе..."/>
             </MenuItem>
@@ -75,7 +78,7 @@
             <Separator/>
             <Button Content="Закрыть" Click="ButtonClose_Click"/>
             <Separator/>
-            <Button Content="Сохранить"/>
+            <Button Content="Сохранить" Click="SaveSurveyClick"/>
         </ToolBar>
         <Canvas Background="White" x:Name="MainCanvas" Grid.Row="2" MouseDown="MainCanvas_MouseDown"></Canvas>
         <StackPanel Style="{StaticResource SP_Style}"
