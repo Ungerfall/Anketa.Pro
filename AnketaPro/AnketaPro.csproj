@@ -57,7 +57,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Tools\APTextbox.cs" />
+    <Compile Include="Tools\AnketaProSerializer\AnketaProSerializer.cs" />
     <Page Include="Forms\MainWindow\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -68,7 +68,6 @@
     </Compile>
     <Compile Include="Converters\MarginConverter.cs" />
     <Compile Include="Converters\StackPanelMaxWidthConverter.cs" />
-    <Compile Include="Forms\MainWindow\CloseButtonHelp.cs" />
     <Compile Include="Forms\MainWindow\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -83,6 +82,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

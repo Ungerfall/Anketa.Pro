@@ -8,7 +8,7 @@
     <Window.Resources>
         <local:MarginConverter x:Key="MarginConverter"></local:MarginConverter>
         <local:StackPanelMaxWidthConverter x:Key="StackPanelMaxWidthConverter"></local:StackPanelMaxWidthConverter>
-        <Style x:Key="SP_Style" TargetType="StackPanel">
+        <Style x:Key="SpStyle" TargetType="StackPanel">
             <Setter Property="Visibility" Value="Hidden"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding IsChecked, ElementName=ToolBoxTButton}" Value="True">
@@ -31,10 +31,12 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
-            <ColumnDefinition Width="Auto" MaxWidth="{Binding Path=ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, Converter={StaticResource StackPanelMaxWidthConverter}}" MinWidth="20"></ColumnDefinition>
+            <ColumnDefinition Width="Auto" 
+                              MaxWidth="{Binding Path=ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, Converter={StaticResource StackPanelMaxWidthConverter}}" 
+                              MinWidth="20"></ColumnDefinition>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <GridSplitter x:Name="GSplit" Grid.Row="2" Grid.Column="1" Width="5"
+        <GridSplitter Grid.Row="2" Grid.Column="1" Width="5"
                       VerticalAlignment="Stretch" HorizontalAlignment="Center">
             <GridSplitter.Style>
                 <Style TargetType="GridSplitter">
@@ -47,7 +49,7 @@
                 </Style>
             </GridSplitter.Style>
         </GridSplitter>
-        <Menu Grid.Row="0" Grid.ColumnSpan="4">
+        <Menu Grid.Row="0" Grid.ColumnSpan="4" Grid.Column="0">
             <MenuItem Header="Файл">
                 <MenuItem Header="Новый"/>
                 <MenuItem Header="Открыть"/>
@@ -72,7 +74,8 @@
                 <MenuItem Header="О программе..."/>
             </MenuItem>
         </Menu>
-        <ToolBar x:Name="MainTB" Background="White" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded" Grid.Row="1" Grid.ColumnSpan="4">
+        <ToolBar x:Name="MainTb" Background="White" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded" Grid.Row="1" Grid.ColumnSpan="4"
+                 Grid.Column="0">
             <Button Content="Новый"/>
             <Button Content="Открыть"/>
             <Separator/>
@@ -80,19 +83,33 @@
             <Separator/>
             <Button Content="Сохранить" Click="SaveSurveyClick"/>
         </ToolBar>
-        <Canvas Background="White" x:Name="MainCanvas" Grid.Row="2" MouseDown="MainCanvas_MouseDown"></Canvas>
-        <StackPanel Style="{StaticResource SP_Style}"
+        <ScrollViewer Grid.Row="2" Grid.Column="0" Focusable="False" x:Name="ScrollViewer" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Stretch" 
+                Margin="10,15,10,0"
+                Background="White" x:Name="MainStackPanel">
+                <TextBlock 
+                    Text="Новый опрос"
+                    FontWeight="Bold"
+                    FontSize="16"
+                    Width="{Binding ElementName=ScrollViewer, Path=ActualWidth}"
+                />
+            </StackPanel>
+        </ScrollViewer>
+        <StackPanel Style="{StaticResource SpStyle}"
                     MinWidth="170"
-                    Background="Gray" x:Name="SP_Toolbox" 
+                    Background="Gray" x:Name="SpToolbox" 
                     Grid.Row="2" Grid.Column="2">
             <TextBlock Background="LightSeaGreen" Text="Инструменты"/>
-            <Button Content="Текст" Click="TextButton_Click"></Button>
+            <Button Content="Вопрос без вариантов" Click="TextButton_Click"></Button>
             <Button Content="Вопрос (один ответ)" Click="OneAnswer_Click"></Button>
             <Button Content="Вопрос (несколько ответов)" Click="ManyAnswers_Click"></Button>
             <Button Content="Изображение" Click="Image_Click"></Button>
+            <Button Content="Разрыв страницы" Click="PageBreakClick"></Button>
         </StackPanel>
         <ToolBarTray Grid.Row="1" Grid.RowSpan="2" Grid.Column="3" Orientation="Vertical" IsLocked="True">
-            <ToolBar Margin="{Binding ElementName=MainTB, Path=ActualHeight, Converter={StaticResource MarginConverter}}" Loaded="ToolBar_Loaded_1">
+            <ToolBar Margin="{Binding ElementName=MainTb, Path=ActualHeight, Converter={StaticResource MarginConverter}}" Loaded="ToolBar_Loaded_1">
                 <ToggleButton x:Name="ToolBoxTButton" Content="Инструменты">
                     <ToggleButton.LayoutTransform>
                         <RotateTransform Angle="90"/>

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
+using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Newtonsoft.Json;
+using System.Windows.Shapes;
+using AnketaPro.Tools.AnketaProSerializer;
 using SIO = System.IO;
 
 namespace AnketaPro.Forms.MainWindow
@@ -12,63 +13,59 @@ namespace AnketaPro.Forms.MainWindow
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
-        #region Condition
-        enum Conditions
-        {
-            Default = 0,
-            IsText,
-            IsOneAnswer,
-            IsManyAnswers,
-            IsImage
-        };
-
-        private Conditions m_toolbox_cond;
-        private bool m_draw_condition;
-        #endregion
-
         #region Fields
         #endregion
 
         public MainWindow()
         {
             InitializeComponent();
-            m_draw_condition = false;
-            m_toolbox_cond = Conditions.Default;
         }
 
         //скрытие OverflowGrid и MainPanelBorder
         private void ToolBar_Loaded(object sender, RoutedEventArgs e)
         {
-            ToolBar toolBar = sender as ToolBar;
-            var overflowGrid = toolBar.Template.FindName("OverflowGrid", toolBar) as FrameworkElement;
-            if (overflowGrid != null)
+            var toolBar = sender as ToolBar;
+            if (toolBar != null)
             {
-                overflowGrid.Visibility = Visibility.Collapsed;
+                var overflowGrid = toolBar.Template.FindName("OverflowGrid", toolBar) as FrameworkElement;
+                if (overflowGrid != null)
+                {
+                    overflowGrid.Visibility = Visibility.Collapsed;
+                }
             }
 
-            var mainPanelBorder = toolBar.Template.FindName("MainPanelBorder", toolBar) as FrameworkElement;
-            if (mainPanelBorder != null)
+            if (toolBar != null)
             {
-                mainPanelBorder.Margin = new Thickness(0);
+                var mainPanelBorder =  toolBar.Template.FindName("MainPanelBorder", toolBar) as FrameworkElement;
+                if (mainPanelBorder != null)
+                {
+                    mainPanelBorder.Margin = new Thickness(0);
+                }
             }
         }
 
         //скрытие OverflowGrid и MainPanelBorder
         private void ToolBar_Loaded_1(object sender, RoutedEventArgs e)
         {
-            ToolBar toolBar = sender as ToolBar;
-            var overflowGrid = toolBar.Template.FindName("OverflowGrid", toolBar) as FrameworkElement;
-            if (overflowGrid != null)
+            var toolBar = sender as ToolBar;
+            if (toolBar != null)
             {
-                overflowGrid.Visibility = Visibility.Collapsed;
+                var overflowGrid = toolBar.Template.FindName("OverflowGrid", toolBar) as FrameworkElement;
+                if (overflowGrid != null)
+                {
+                    overflowGrid.Visibility = Visibility.Collapsed;
+                }
             }
 
-            var mainPanelBorder = toolBar.Template.FindName("MainPanelBorder", toolBar) as FrameworkElement;
-            if (mainPanelBorder != null)
+            if (toolBar != null)
             {
-                mainPanelBorder.Margin = new Thickness(0);
+                var mainPanelBorder = toolBar.Template.FindName("MainPanelBorder", toolBar) as FrameworkElement;
+                if (mainPanelBorder != null)
+                {
+                    mainPanelBorder.Margin = new Thickness(0);
+                }
             }
         }
 
@@ -79,243 +76,221 @@ namespace AnketaPro.Forms.MainWindow
 
         private void TextButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!m_draw_condition)
+            var stackpanel = new StackPanel
             {
-                m_draw_condition = true;
-                Mouse.OverrideCursor = Cursors.Pen;
-                m_toolbox_cond = Conditions.IsText;
-            }
-        }
-
-        private void ManyAnswers_Click(object sender, RoutedEventArgs e)
-        {
-            if (!m_draw_condition)
+                Name = "Text",
+                VerticalAlignment = VerticalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Margin = new Thickness(0, 5, 0, 5)
+            };
+            var question = new TextBox
             {
-                m_draw_condition = true;
-                Mouse.OverrideCursor = Cursors.Pen;
-                m_toolbox_cond = Conditions.IsManyAnswers;
-            }
+                Width = ScrollViewer.ActualWidth,
+                Text = "Вопрос",
+                AcceptsReturn = true
+            };
+            var answer = new TextBox
+            {
+                Text = "Ответ",
+                AcceptsReturn = true
+            };
+            stackpanel.Children.Add(question);
+            stackpanel.Children.Add(answer);
+            MainStackPanel.Children.Add(stackpanel);
+            question.SelectAll();
+            question.Focus();
         }
 
         private void OneAnswer_Click(object sender, RoutedEventArgs e)
         {
-            if (!m_draw_condition)
+            var grid = new Grid
             {
-                m_draw_condition = true;
-                Mouse.OverrideCursor = Cursors.Pen;
-                m_toolbox_cond = Conditions.IsOneAnswer;
-            }
+                Name = "OneFromList",
+                Margin = new Thickness(0, 5, 0, 5)
+            };
+            grid.ColumnDefinitions.Add(new ColumnDefinition {Width = GridLength.Auto});
+            grid.ColumnDefinitions.Add(new ColumnDefinition());
+            grid.RowDefinitions.Add(new RowDefinition());
+            grid.RowDefinitions.Add(new RowDefinition());
+            grid.RowDefinitions.Add(new RowDefinition());
+            var question = new TextBox
+            {
+                Width = ScrollViewer.ActualWidth,
+                Text = "Вопрос",
+                AcceptsReturn = true
+            };
+            question.SetBinding(WidthProperty, new Binding
+            {
+                ElementName = "ScrollViewer",
+                Path = new PropertyPath(ActualWidthProperty)
+            });
+            var radio = new RadioButton {VerticalAlignment = VerticalAlignment.Center};
+            var answer = new TextBox {AcceptsReturn = true};
+            var addvariant = new Button {Content = "Добавить вариант", HorizontalAlignment = HorizontalAlignment.Center};
+            addvariant.Click += (o, args) =>
+            {
+                var button = (Button) o;
+                var currentrow = Grid.GetRow(button);
+                grid.RowDefinitions.Add(new RowDefinition());
+                var newradio = new RadioButton { VerticalAlignment = VerticalAlignment.Center };
+                var newanswer = new TextBox { AcceptsReturn = true };
+                Grid.SetRow(button, currentrow + 1);
+                grid.Children.Add(newradio);
+                Grid.SetColumn(newradio, 0);
+                Grid.SetRow(newradio, currentrow);
+                grid.Children.Add(newanswer);
+                Grid.SetColumn(newanswer, 1);
+                Grid.SetRow(newanswer, currentrow);
+            };
+            grid.Children.Add(question);
+            Grid.SetRow(question, 0);
+            Grid.SetColumn(question, 0);
+            Grid.SetColumnSpan(question, 2);
+            grid.Children.Add(radio);
+            Grid.SetColumn(radio, 0);
+            Grid.SetRow(radio, 1);
+            grid.Children.Add(answer);
+            Grid.SetColumn(answer, 1);
+            Grid.SetRow(answer, 1);
+            grid.Children.Add(addvariant);
+            Grid.SetRow(addvariant, 2);
+            Grid.SetColumn(addvariant, 0);
+            Grid.SetColumnSpan(addvariant, 2);
+            MainStackPanel.Children.Add(grid);
+            question.SelectAll();
+            question.Focus();
+        }
+
+        private void ManyAnswers_Click(object sender, RoutedEventArgs e)
+        {
+            var grid = new Grid
+            {
+                Name = "SeveralFromList",
+                Margin = new Thickness(0, 5, 0, 5)
+            };
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            grid.ColumnDefinitions.Add(new ColumnDefinition());
+            grid.RowDefinitions.Add(new RowDefinition());
+            grid.RowDefinitions.Add(new RowDefinition());
+            grid.RowDefinitions.Add(new RowDefinition());
+            var question = new TextBox
+            {
+                Width = ScrollViewer.ActualWidth,
+                Text = "Вопрос",
+                AcceptsReturn = true
+            };
+            question.SetBinding(WidthProperty, new Binding
+            {
+                ElementName = "ScrollViewer",
+                Path = new PropertyPath(ActualWidthProperty)
+            });
+            var check = new CheckBox { VerticalAlignment = VerticalAlignment.Center };
+            var answer = new TextBox { AcceptsReturn = true };
+            var addvariant = new Button { Content = "Добавить вариант", HorizontalAlignment = HorizontalAlignment.Center };
+            addvariant.Click += (o, args) =>
+            {
+                var button = (Button)o;
+                var currentrow = Grid.GetRow(button);
+                grid.RowDefinitions.Add(new RowDefinition());
+                var newcheck = new CheckBox { VerticalAlignment = VerticalAlignment.Center };
+                var newanswer = new TextBox { AcceptsReturn = true };
+                Grid.SetRow(button, currentrow + 1);
+                grid.Children.Add(newcheck);
+                Grid.SetColumn(newcheck, 0);
+                Grid.SetRow(newcheck, currentrow);
+                grid.Children.Add(newanswer);
+                Grid.SetColumn(newanswer, 1);
+                Grid.SetRow(newanswer, currentrow);
+            };
+            grid.Children.Add(question);
+            Grid.SetRow(question, 0);
+            Grid.SetColumn(question, 0);
+            Grid.SetColumnSpan(question, 2);
+            grid.Children.Add(check);
+            Grid.SetColumn(check, 0);
+            Grid.SetRow(check, 1);
+            grid.Children.Add(answer);
+            Grid.SetColumn(answer, 1);
+            Grid.SetRow(answer, 1);
+            grid.Children.Add(addvariant);
+            Grid.SetRow(addvariant, 2);
+            Grid.SetColumn(addvariant, 0);
+            Grid.SetColumnSpan(addvariant, 2);
+            MainStackPanel.Children.Add(grid);
+            question.SelectAll();
+            question.Focus();
         }
 
         private void Image_Click(object sender, RoutedEventArgs e)
         {
-            if (!m_draw_condition)
+            try
             {
-                m_draw_condition = true;
-                Mouse.OverrideCursor = Cursors.Pen;
-                m_toolbox_cond = Conditions.IsImage;
+                var dlg = new Microsoft.Win32.OpenFileDialog
+                {
+                    DefaultExt = ".png",
+                    Filter =
+                        "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif"
+                };
+                var result = dlg.ShowDialog();
+                if (result != true) return;
+                var filename = dlg.FileName;
+                var bitmap = new BitmapImage();
+                var img = new Image
+                {
+                    Name = "Image",
+                    Width = 150,
+                    Height = 150,
+                    Stretch = Stretch.Fill,
+                    Source = bitmap
+                };
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(filename);
+                bitmap.EndInit();
+                MainStackPanel.Children.Add(img);
             }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        private void PageBreakClick(object sender, RoutedEventArgs e)
+        {
+            var rectangle = new Rectangle
+            {
+                Name = "PageBreak",
+                Fill = Brushes.DimGray,
+                Height = 10
+            };
+            var binding = new Binding
+            {
+                ElementName = "ScrollViewer",
+                Path = new PropertyPath(ActualWidthProperty)
+            };
+            rectangle.SetBinding(WidthProperty, binding);
+            MainStackPanel.Children.Add(rectangle);
         }
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
-            MainCanvas.Children.Clear();
+            MainStackPanel.Children.Clear();
         }
-
-        private void MainCanvas_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            var point = e.GetPosition(MainCanvas);
-            #region iftrue
-            if (m_draw_condition)
-            {
-                switch (m_toolbox_cond)
-                {
-                    case Conditions.IsText:
-                        {
-                            var _textbox = new TextBox();
-                            _textbox.MinWidth = 100;
-                            _textbox.VerticalAlignment = System.Windows.VerticalAlignment.Stretch;
-                            _textbox.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
-                            _textbox.AcceptsReturn = true;
-                            MainCanvas.Children.Add(_textbox);
-                            Canvas.SetLeft(_textbox, point.X);
-                            Canvas.SetTop(_textbox, point.Y);
-                        }
-                        break;
-                    case Conditions.IsOneAnswer:
-                        {
-                            var _textbox = new TextBox();
-                            var _radiobtn = new RadioButton();
-                            var _dp = new DockPanel();
-                            var _btn = new Button();
-                            var _txtbox_2 = new TextBox();
-
-                            _textbox.Width = 100;
-                            _textbox.Height = 25;
-                            _txtbox_2.Width = 100;
-                            _txtbox_2.Height = 25;
-                            _radiobtn.VerticalAlignment = System.Windows.VerticalAlignment.Center;
-                            _dp.Children.Add(_radiobtn);
-                            _dp.Children.Add(_txtbox_2);
-                            _btn.Content = "Добавить вариант";
-                            _btn.Click += new RoutedEventHandler(_btn_Click);
-
-                            MainCanvas.Children.Add(_textbox);
-                            Canvas.SetLeft(_textbox, point.X);
-                            Canvas.SetTop(_textbox, point.Y);
-                            MainCanvas.Children.Add(_dp);
-                            Canvas.SetLeft(_dp, point.X);
-                            Canvas.SetTop(_dp, point.Y + 30);
-                            MainCanvas.Children.Add(_btn);
-                            Canvas.SetLeft(_btn, point.X);
-                            Canvas.SetTop(_btn, point.Y + 60);
-                        }
-                        break;
-                    case Conditions.IsManyAnswers:
-                        {
-                            var _textbox = new TextBox();
-                            var _checkbox = new CheckBox();
-                            var _dp = new DockPanel();
-                            var _btn = new Button();
-                            var _txtbox_2 = new TextBox();
-
-                            _textbox.Width = 100;
-                            _textbox.Height = 25;
-                            _txtbox_2.Width = 100;
-                            _txtbox_2.Height = 25;
-                            _checkbox.VerticalAlignment = System.Windows.VerticalAlignment.Center;
-                            _dp.Children.Add(_checkbox);
-                            _dp.Children.Add(_txtbox_2);
-                            _btn.Content = "Добавить вариант";
-                            _btn.Click += new RoutedEventHandler(add_btn_click);
-
-                            MainCanvas.Children.Add(_textbox);
-                            Canvas.SetLeft(_textbox, point.X);
-                            Canvas.SetTop(_textbox, point.Y);
-                            MainCanvas.Children.Add(_dp);
-                            Canvas.SetLeft(_dp, point.X);
-                            Canvas.SetTop(_dp, point.Y + 30);
-                            MainCanvas.Children.Add(_btn);
-                            Canvas.SetLeft(_btn, point.X);
-                            Canvas.SetTop(_btn, point.Y + 60);
-                        }
-                        break;
-                    case Conditions.IsImage:
-                        {
-                            try
-                            {
-                                Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-
-                                // Set filter for file extension and default file extension 
-                                dlg.DefaultExt = ".png";
-                                dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
-
-                                // Display OpenFileDialog by calling ShowDialog method 
-                                Nullable<bool> result = dlg.ShowDialog();
-
-                                // Get the selected file name and display in a TextBox 
-                                if (result == true)
-                                {
-                                    // Open document 
-                                    string filename = dlg.FileName;
-                                    var _img = new Image();
-                                    var _bitmap = new BitmapImage();
-                                    _bitmap.BeginInit();
-                                    _bitmap.UriSource = new Uri(filename);
-                                    _bitmap.EndInit();
-                                    _img.Width = 150;
-                                    _img.Height = 150;
-                                    _img.Stretch = Stretch.Fill;
-                                    _img.Source = _bitmap;
-                                    MainCanvas.Children.Add(_img);
-                                    Canvas.SetLeft(_img, point.X);
-                                    Canvas.SetTop(_img, point.Y);
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                throw new Exception(ex.Message);
-                            }
-                        }
-                        break;
-                }
-                Mouse.OverrideCursor = null;
-                m_draw_condition = false;
-                m_toolbox_cond = Conditions.Default;
-            }
-            #endregion endif
-            else
-            {
-            }
-        }
-
-        void _btn_Click(object sender, RoutedEventArgs e)
-        {
-            var _btn = sender as Button;
-            var left = Canvas.GetLeft(_btn);
-            var top = Canvas.GetTop(_btn);
-            var _txtbox = new TextBox();
-            var _rabiobtn = new RadioButton();
-            var _dp = new DockPanel();
-
-            _txtbox.Width = 100;
-            _txtbox.Height = 25;
-            _rabiobtn.VerticalAlignment = System.Windows.VerticalAlignment.Center;
-            _dp.Children.Add(_rabiobtn);
-            _dp.Children.Add(_txtbox);
-
-            MainCanvas.Children.Add(_dp);
-            Canvas.SetLeft(_dp, left);
-            Canvas.SetTop(_dp, top);
-            Canvas.SetLeft(_btn, left);
-            Canvas.SetTop(_btn, top + 30);
-        }
-
-        void add_btn_click(object sender, RoutedEventArgs e)
-        {
-            var _btn = sender as Button;
-            var left = Canvas.GetLeft(_btn);
-            var top = Canvas.GetTop(_btn);
-            var _txtbox = new TextBox();
-            var _checkbox = new CheckBox();
-            var _dp = new DockPanel();
-
-            _txtbox.Width = 100;
-            _txtbox.Height = 25;
-            _checkbox.VerticalAlignment = System.Windows.VerticalAlignment.Center;
-            _dp.Children.Add(_checkbox);
-            _dp.Children.Add(_txtbox);
-
-            MainCanvas.Children.Add(_dp);
-            Canvas.SetLeft(_dp, left);
-            Canvas.SetTop(_dp, top);
-            Canvas.SetLeft(_btn, left);
-            Canvas.SetTop(_btn, top + 30);
-        }
-
+        
         private void SaveSurveyClick(object sender, RoutedEventArgs e)
         {
-            
             var dlg = new Microsoft.Win32.SaveFileDialog();
-            SIO.Directory.CreateDirectory(System.AppDomain.CurrentDomain.BaseDirectory + "Surveys");
+            SIO.Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Surveys");
             dlg.FileName = "Опрос";
             dlg.DefaultExt = ".anktpro";
             dlg.Filter = "AnketaProSurvey documents (.anktpro)|*.anktpro";
-            dlg.InitialDirectory = System.AppDomain.CurrentDomain.BaseDirectory + "Surveys\\";
+            dlg.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory + "Surveys\\";
             dlg.RestoreDirectory = true;
-            Nullable<bool> result = dlg.ShowDialog();
+            var result = dlg.ShowDialog();
 
             if (result == true)
             {
-                JsonSerializer serializer = new JsonSerializer();
-                serializer.NullValueHandling = NullValueHandling.Ignore;
-
-                using (SIO.StreamWriter sw = new SIO.StreamWriter(dlg.FileName))
-                using (JsonWriter writer = new JsonTextWriter(sw))
-                {
-                    
-                    serializer.Serialize(writer, MainCanvas.Children[0]);
-                }
+                var serializer = new AnketaProSerializer();
+                AnketaProSerializer.Serialize(MainStackPanel.Children);
             }
         }
     }
