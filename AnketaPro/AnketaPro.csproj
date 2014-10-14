@@ -57,7 +57,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Tools\AnketaProSerializer\AnketaProSerializer.cs" />
     <Page Include="Forms\MainWindow\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -82,7 +81,19 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\AnketaProSerializer\AnketaProSerializer.csproj">
+      <Project>{6ec0b197-63da-472d-b391-2dd71f9f58ee}</Project>
+      <Name>AnketaProSerializer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AnketaSurvey\AnketaSurvey.csproj">
+      <Project>{727bd7fc-0fd6-4826-b808-71babf81e2c3}</Project>
+      <Name>AnketaSurvey</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Tools\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

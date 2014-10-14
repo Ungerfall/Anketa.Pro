@@ -2,7 +2,8 @@
 using System.IO;
 using System.Text;
 using System.Windows;
-using AnketaPro.Tools.AnketaProSerializer;
+using System.Windows.Controls;
+using AnketaProSerializer;
 
 namespace AnketaSurvey
 {
@@ -14,6 +15,27 @@ namespace AnketaSurvey
         public AnketaSurveyMainWindow()
         {
             InitializeComponent();
+        }
+
+        //скрытие OverflowGrid и MainPanelBorder
+        private void ToolBar_Loaded(object sender, RoutedEventArgs e)
+        {
+            var toolBar = sender as ToolBar;
+            if (toolBar != null)
+            {
+                var overflowGrid = toolBar.Template.FindName("OverflowGrid", toolBar) as FrameworkElement;
+                if (overflowGrid != null)
+                {
+                    overflowGrid.Visibility = Visibility.Collapsed;
+                }
+            }
+
+            if (toolBar == null) return;
+            var mainPanelBorder = toolBar.Template.FindName("MainPanelBorder", toolBar) as FrameworkElement;
+            if (mainPanelBorder != null)
+            {
+                mainPanelBorder.Margin = new Thickness(0);
+            }
         }
 
         private void LoadSurvey(object sender, RoutedEventArgs e)
@@ -29,7 +51,7 @@ namespace AnketaSurvey
             if (result != true) return;
             using (var sr = new StreamReader(dlg.FileName, Encoding.UTF8))
             {
-                var sp = AnketaProSerializer.DeSerialize(sr.ReadToEnd());
+                ApSerializer.Deserialize(ref AsMainStackPanel, sr.ReadToEnd(), DeserializeType.Survey);
             }
         }
     }

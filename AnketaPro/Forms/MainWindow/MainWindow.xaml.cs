@@ -6,8 +6,9 @@ using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using AnketaPro.Tools.AnketaProSerializer;
 using System.IO;
+using AnketaProSerializer;
+using AnketaSurvey;
 
 namespace AnketaPro.Forms.MainWindow
 {
@@ -82,10 +83,14 @@ namespace AnketaPro.Forms.MainWindow
             };
             var question = new TextBox
             {
-                Width = ScrollViewer.ActualWidth,
                 Text = "Вопрос",
                 AcceptsReturn = true
             };
+            question.SetBinding(WidthProperty, new Binding
+            {
+                ElementName = "ScrollViewer",
+                Path = new PropertyPath(ActualWidthProperty)
+            });
             var answer = new TextBox
             {
                 Text = "Ответ",
@@ -112,7 +117,6 @@ namespace AnketaPro.Forms.MainWindow
             grid.RowDefinitions.Add(new RowDefinition());
             var question = new TextBox
             {
-                Width = ScrollViewer.ActualWidth,
                 Text = "Вопрос",
                 AcceptsReturn = true
             };
@@ -174,7 +178,6 @@ namespace AnketaPro.Forms.MainWindow
             grid.RowDefinitions.Add(new RowDefinition());
             var question = new TextBox
             {
-                Width = ScrollViewer.ActualWidth,
                 Text = "Вопрос",
                 AcceptsReturn = true
             };
@@ -290,26 +293,15 @@ namespace AnketaPro.Forms.MainWindow
             var result = dlg.ShowDialog();
 
             if (result != true) return;
-            var serial = AnketaProSerializer.Serialize(MainStackPanel.Children);
+            var serial = ApSerializer.Serialize(MainStackPanel.Children);
             using (var sw = new StreamWriter(dlg.FileName, false, Encoding.UTF8))
                 sw.Write(serial);
         }
 
         private void CallAnketaSurvey(object sender, RoutedEventArgs e)
         {
-            var dlg = new Microsoft.Win32.OpenFileDialog
-            {
-                DefaultExt = ".anktpro",
-                Filter = "AnketaProSurvey documents (.anktpro)|*.anktpro",
-                InitialDirectory = AppDomain.CurrentDomain.BaseDirectory + "Surveys\\",
-                RestoreDirectory = true
-            };
-            var result = dlg.ShowDialog();
-            if (result != true) return;
-            using (var sr = new StreamReader(dlg.FileName, Encoding.UTF8))
-            {
-                var sp = AnketaProSerializer.DeSerialize(sr.ReadToEnd(), DeserializeType.Survey);
-            }
+            var survey = new AnketaSurveyMainWindow();
+            survey.ShowDialog();
         }
     }
 }
