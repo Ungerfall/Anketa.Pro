@@ -68,7 +68,7 @@
                 <MenuItem Header="Очистить"/>
             </MenuItem>
             <MenuItem Header="Интсрументы">
-                <MenuItem Header="AnketaSurvey"></MenuItem>
+                <MenuItem Header="AnketaSurvey" Click="CallAnketaSurvey"></MenuItem>
             </MenuItem>
             <MenuItem Header="Справка">
                 <MenuItem Header="О программе..."/>

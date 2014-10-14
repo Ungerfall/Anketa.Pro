@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -6,7 +7,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using AnketaPro.Tools.AnketaProSerializer;
-using SIO = System.IO;
+using System.IO;
 
 namespace AnketaPro.Forms.MainWindow
 {
@@ -36,13 +37,11 @@ namespace AnketaPro.Forms.MainWindow
                 }
             }
 
-            if (toolBar != null)
+            if (toolBar == null) return;
+            var mainPanelBorder =  toolBar.Template.FindName("MainPanelBorder", toolBar) as FrameworkElement;
+            if (mainPanelBorder != null)
             {
-                var mainPanelBorder =  toolBar.Template.FindName("MainPanelBorder", toolBar) as FrameworkElement;
-                if (mainPanelBorder != null)
-                {
-                    mainPanelBorder.Margin = new Thickness(0);
-                }
+                mainPanelBorder.Margin = new Thickness(0);
             }
         }
 
@@ -59,13 +58,11 @@ namespace AnketaPro.Forms.MainWindow
                 }
             }
 
-            if (toolBar != null)
+            if (toolBar == null) return;
+            var mainPanelBorder = toolBar.Template.FindName("MainPanelBorder", toolBar) as FrameworkElement;
+            if (mainPanelBorder != null)
             {
-                var mainPanelBorder = toolBar.Template.FindName("MainPanelBorder", toolBar) as FrameworkElement;
-                if (mainPanelBorder != null)
-                {
-                    mainPanelBorder.Margin = new Thickness(0);
-                }
+                mainPanelBorder.Margin = new Thickness(0);
             }
         }
 
@@ -141,6 +138,7 @@ namespace AnketaPro.Forms.MainWindow
                 grid.Children.Add(newanswer);
                 Grid.SetColumn(newanswer, 1);
                 Grid.SetRow(newanswer, currentrow);
+                newanswer.Focus();
             };
             grid.Children.Add(question);
             Grid.SetRow(question, 0);
@@ -159,6 +157,7 @@ namespace AnketaPro.Forms.MainWindow
             MainStackPanel.Children.Add(grid);
             question.SelectAll();
             question.Focus();
+            radio.IsChecked = true;
         }
 
         private void ManyAnswers_Click(object sender, RoutedEventArgs e)
@@ -201,6 +200,7 @@ namespace AnketaPro.Forms.MainWindow
                 grid.Children.Add(newanswer);
                 Grid.SetColumn(newanswer, 1);
                 Grid.SetRow(newanswer, currentrow);
+                newanswer.Focus();
             };
             grid.Children.Add(question);
             Grid.SetRow(question, 0);
@@ -278,19 +278,37 @@ namespace AnketaPro.Forms.MainWindow
         
         private void SaveSurveyClick(object sender, RoutedEventArgs e)
         {
-            var dlg = new Microsoft.Win32.SaveFileDialog();
-            SIO.Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Surveys");
-            dlg.FileName = "Опрос";
-            dlg.DefaultExt = ".anktpro";
-            dlg.Filter = "AnketaProSurvey documents (.anktpro)|*.anktpro";
-            dlg.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory + "Surveys\\";
-            dlg.RestoreDirectory = true;
+            var dlg = new Microsoft.Win32.SaveFileDialog
+            {
+                FileName = "Опрос",
+                DefaultExt = ".anktpro",
+                Filter = "AnketaProSurvey documents (.anktpro)|*.anktpro",
+                InitialDirectory = AppDomain.CurrentDomain.BaseDirectory + "Surveys\\",
+                RestoreDirectory = true
+            };
+            Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Surveys");
             var result = dlg.ShowDialog();
 
-            if (result == true)
+            if (result != true) return;
+            var serial = AnketaProSerializer.Serialize(MainStackPanel.Children);
+            using (var sw = new StreamWriter(dlg.FileName, false, Encoding.UTF8))
+                sw.Write(serial);
+        }
+
+        private void CallAnketaSurvey(object sender, RoutedEventArgs e)
+        {
+            var dlg = new Microsoft.Win32.OpenFileDialog
             {
-                var serializer = new AnketaProSerializer();
-                AnketaProSerializer.Serialize(MainStackPanel.Children);
+                DefaultExt = ".anktpro",
+                Filter = "AnketaProSurvey documents (.anktpro)|*.anktpro",
+                InitialDirectory = AppDomain.CurrentDomain.BaseDirectory + "Surveys\\",
+                RestoreDirectory = true
+            };
+            var result = dlg.ShowDialog();
+            if (result != true) return;
+            using (var sr = new StreamReader(dlg.FileName, Encoding.UTF8))
+            {
+                var sp = AnketaProSerializer.DeSerialize(sr.ReadToEnd(), DeserializeType.Survey);
             }
         }
     }
