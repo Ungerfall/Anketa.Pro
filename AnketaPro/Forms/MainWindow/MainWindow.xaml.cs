@@ -2,7 +2,6 @@
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
@@ -74,31 +73,14 @@ namespace AnketaPro.Forms.MainWindow
 
         private void TextButton_Click(object sender, RoutedEventArgs e)
         {
-            var stackpanel = new StackPanel
-            {
-                Name = "Text",
-                VerticalAlignment = VerticalAlignment.Center,
-                HorizontalAlignment = HorizontalAlignment.Center,
-                Margin = new Thickness(0, 5, 0, 5)
-            };
             var question = new TextBox
             {
+                Name = "Text",
                 Text = "Вопрос",
-                AcceptsReturn = true
+                AcceptsReturn = true,
+                Margin = new Thickness(0, 5, 0, 5)
             };
-            question.SetBinding(WidthProperty, new Binding
-            {
-                ElementName = "ScrollViewer",
-                Path = new PropertyPath(ActualWidthProperty)
-            });
-            var answer = new TextBox
-            {
-                Text = "Ответ",
-                AcceptsReturn = true
-            };
-            stackpanel.Children.Add(question);
-            stackpanel.Children.Add(answer);
-            MainStackPanel.Children.Add(stackpanel);
+            MainStackPanel.Children.Add(question);
             question.SelectAll();
             question.Focus();
         }
@@ -120,11 +102,6 @@ namespace AnketaPro.Forms.MainWindow
                 Text = "Вопрос",
                 AcceptsReturn = true
             };
-            question.SetBinding(WidthProperty, new Binding
-            {
-                ElementName = "ScrollViewer",
-                Path = new PropertyPath(ActualWidthProperty)
-            });
             var radio = new RadioButton {VerticalAlignment = VerticalAlignment.Center};
             var answer = new TextBox {AcceptsReturn = true};
             var addvariant = new Button {Content = "Добавить вариант", HorizontalAlignment = HorizontalAlignment.Center};
@@ -181,11 +158,6 @@ namespace AnketaPro.Forms.MainWindow
                 Text = "Вопрос",
                 AcceptsReturn = true
             };
-            question.SetBinding(WidthProperty, new Binding
-            {
-                ElementName = "ScrollViewer",
-                Path = new PropertyPath(ActualWidthProperty)
-            });
             var check = new CheckBox { VerticalAlignment = VerticalAlignment.Center };
             var answer = new TextBox { AcceptsReturn = true };
             var addvariant = new Button { Content = "Добавить вариант", HorizontalAlignment = HorizontalAlignment.Center };
@@ -265,12 +237,6 @@ namespace AnketaPro.Forms.MainWindow
                 Fill = Brushes.DimGray,
                 Height = 10
             };
-            var binding = new Binding
-            {
-                ElementName = "ScrollViewer",
-                Path = new PropertyPath(ActualWidthProperty)
-            };
-            rectangle.SetBinding(WidthProperty, binding);
             MainStackPanel.Children.Add(rectangle);
         }
 

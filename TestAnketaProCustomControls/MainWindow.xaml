@@ -1,0 +1,17 @@
+﻿<Window x:Class="TestAnketaProCustomControls.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525"
+        xmlns:apCustCtrls="clr-namespace:AnketaProCustomControls;assembly=AnketaProCustomControls">
+    <Grid>
+        <StackPanel x:Name="StackPanel">
+            <apCustCtrls:ApQuestion x:Name="ApQuestion"></apCustCtrls:ApQuestion>
+            <DockPanel>
+                <Button Content="Constructor" Click="ConstructorClick"></Button>
+                <Button Content="Survey" Click="SurveyClick"></Button>
+                <Button Content="Test" Click="TestClick"></Button>
+                <Button Content="NewApQuestion" Click="NewApQuestion"></Button>
+            </DockPanel>
+        </StackPanel>
+    </Grid>
+</Window>

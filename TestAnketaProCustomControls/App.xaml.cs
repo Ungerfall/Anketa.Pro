@@ -4,7 +4,7 @@ using System.Configuration;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace AnketaSurvey
+namespace TestAnketaProCustomControls
 {
     /// <summary>
     /// Interaction logic for App.xaml

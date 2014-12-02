@@ -20,7 +20,6 @@ namespace AnketaProSerializer
         public static StringBuilder Serialize(UIElementCollection items)
         {
             var apSerializedText = new StringBuilder();
-            items.RemoveAt(0);
             foreach (var item in items)
             {
                 int answerIndex;
@@ -30,11 +29,8 @@ namespace AnketaProSerializer
                 {
                     case "Text":
                         apSerializedText.Append("Text:");
-                        foreach (TextBox textbox in ((StackPanel)item).Children)
-                        {
-                            apSerializedText.Append(textbox.Text);
-                            apSerializedText.Append(StringDivider);
-                        }
+                        apSerializedText.Append(((TextBox)item).Text);
+                        apSerializedText.Append(StringDivider);
                         apSerializedText.Length--;
                         apSerializedText.Append(ToolsDivider);
                         break;
@@ -110,7 +106,7 @@ namespace AnketaProSerializer
                             HorizontalAlignment = HorizontalAlignment.Center,
                             Margin = new Thickness(0, 5, 0, 5)
                         };
-                        var textQuestion = new TextBlock { Text = tokenParts.Item3.Split(StringDivider)[0] };
+                        var textQuestion = new TextBlock {Text = tokenParts.Item3[0]};
                         textQuestion.SetBinding(FrameworkElement.WidthProperty, new Binding
                         {
                             ElementName = "AsScrollViewer",
@@ -134,26 +130,23 @@ namespace AnketaProSerializer
                         oflGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
                         oflGrid.ColumnDefinitions.Add(new ColumnDefinition());
                         oflGrid.RowDefinitions.Add(new RowDefinition());
-                        oflGrid.RowDefinitions.Add(new RowDefinition());
-                        oflGrid.RowDefinitions.Add(new RowDefinition());
-                        var oflQuestion = new TextBlock { Text = tokenParts.Item3.Split(StringDivider)[0] };
-                        oflQuestion.SetBinding(FrameworkElement.WidthProperty, new Binding
-                        {
-                            ElementName = "AsScrollViewer",
-                            Path = new PropertyPath(FrameworkElement.ActualWidthProperty)
-                        });
-                        var radio = new RadioButton { VerticalAlignment = VerticalAlignment.Center };
-                        var oflAnswer = new TextBox { AcceptsReturn = true };
+                        var oflQuestion = new TextBlock {Text = tokenParts.Item3[0]};
                         oflGrid.Children.Add(oflQuestion);
                         Grid.SetRow(oflQuestion, 0);
                         Grid.SetColumn(oflQuestion, 0);
                         Grid.SetColumnSpan(oflQuestion, 2);
-                        oflGrid.Children.Add(radio);
-                        Grid.SetColumn(radio, 0);
-                        Grid.SetRow(radio, 1);
-                        oflGrid.Children.Add(oflAnswer);
-                        Grid.SetColumn(oflAnswer, 1);
-                        Grid.SetRow(oflAnswer, 1);
+                        for (var i = 1; i < tokenParts.Item3.Length; i++)
+                        {
+                            oflGrid.RowDefinitions.Add(new RowDefinition());
+                            var radio = new RadioButton { VerticalAlignment = VerticalAlignment.Center };
+                            oflGrid.Children.Add(radio);
+                            Grid.SetColumn(radio, 0);
+                            Grid.SetRow(radio, i);
+                            var oflAnswer = new TextBox {AcceptsReturn = true, Text = tokenParts.Item3[i]};
+                            oflGrid.Children.Add(oflAnswer);
+                            Grid.SetColumn(oflAnswer, 1);
+                            Grid.SetRow(oflAnswer, i);
+                        }
                         stackPanel.Children.Add(oflGrid);
                         break;
                     case "SeveralFromList":
@@ -165,26 +158,23 @@ namespace AnketaProSerializer
                         sflGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
                         sflGrid.ColumnDefinitions.Add(new ColumnDefinition());
                         sflGrid.RowDefinitions.Add(new RowDefinition());
-                        sflGrid.RowDefinitions.Add(new RowDefinition());
-                        sflGrid.RowDefinitions.Add(new RowDefinition());
-                        var sflQuestion = new TextBlock { Text = tokenParts.Item3.Split(StringDivider)[0] };
-                        sflQuestion.SetBinding(FrameworkElement.WidthProperty, new Binding
-                        {
-                            ElementName = "AsScrollViewer",
-                            Path = new PropertyPath(FrameworkElement.ActualWidthProperty)
-                        });
-                        var check = new CheckBox { VerticalAlignment = VerticalAlignment.Center };
-                        var sflAnswer = new TextBox { AcceptsReturn = true };
+                        var sflQuestion = new TextBlock {Text = tokenParts.Item3[0]};
                         sflGrid.Children.Add(sflQuestion);
                         Grid.SetRow(sflQuestion, 0);
                         Grid.SetColumn(sflQuestion, 0);
                         Grid.SetColumnSpan(sflQuestion, 2);
-                        sflGrid.Children.Add(check);
-                        Grid.SetColumn(check, 0);
-                        Grid.SetRow(check, 1);
-                        sflGrid.Children.Add(sflAnswer);
-                        Grid.SetColumn(sflAnswer, 1);
-                        Grid.SetRow(sflAnswer, 1);
+                        for (var i = 1; i < tokenParts.Item3.Length; i++)
+                        {
+                            sflGrid.RowDefinitions.Add(new RowDefinition());
+                            var check = new CheckBox { VerticalAlignment = VerticalAlignment.Center };
+                            sflGrid.Children.Add(check);
+                            Grid.SetColumn(check, 0);
+                            Grid.SetRow(check, i);
+                            var oflAnswer = new TextBox { AcceptsReturn = true, Text = tokenParts.Item3[i] };
+                            sflGrid.Children.Add(oflAnswer);
+                            Grid.SetColumn(oflAnswer, 1);
+                            Grid.SetRow(oflAnswer, i);
+                        }
                         stackPanel.Children.Add(sflGrid);
                         break;
                     case "Image":
@@ -195,21 +185,21 @@ namespace AnketaProSerializer
             }
         }
 
-        private static Tuple<string, string, string> GetTokensPart(string token)
+        private static Tuple<string, string[], string[]> GetTokensPart(string token)
         {
-            if (token == "PageBreak") return Tuple.Create(token, string.Empty, string.Empty);
+            if (token == "PageBreak") return Tuple.Create(token, new string[0], new string[0]);
             var start = token.IndexOf(':');
             var head = token.Substring(0, start);
-            var body = string.Empty;
-            string tail;
+            var body = new string[0];
+            string[] tail;
             if (head == "OneFromList" || head == "SeveralFromList")
             {
                 var end = token.IndexOf(':', start + 1);
-                body = token.Substring(start + 1, end - start - 1);
-                tail = token.Substring(end + 1);
+                body = token.Substring(start + 1, end - start - 1).Split(',');
+                tail = token.Substring(end + 1).Split(StringDivider);
             }
             else
-                tail = token.Substring(start + 1);
+                tail = token.Substring(start + 1).Split(StringDivider);
             return Tuple.Create(head, body, tail);
         }
     }
