@@ -90,7 +90,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AnketaPro\AnketaProCustomControls\AnketaProCustomControls.csproj">
+    <ProjectReference Include="..\AnketaProCustomControls\AnketaProCustomControls.csproj">
       <Project>{31e64847-d9e1-4238-ab0a-371b7b09e457}</Project>
       <Name>AnketaProCustomControls</Name>
     </ProjectReference>
