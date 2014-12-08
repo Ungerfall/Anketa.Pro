@@ -25,15 +25,6 @@ namespace AnketaProCustomControls
             set { SetValue(AnswerTextProperty, value); }
         }
         
-        public static readonly DependencyProperty ApMarginProperty = DependencyProperty.Register(
-            "ApMargin", typeof (Thickness), typeof (ApQuestion), new PropertyMetadata(default(Thickness)));
-
-        public Thickness ApMargin
-        {
-            get { return (Thickness) GetValue(ApMarginProperty); }
-            set { SetValue(ApMarginProperty, value); }
-        }
-
         public static readonly DependencyProperty GapProperty = DependencyProperty.Register(
             "Gap", typeof (double), typeof (ApQuestion), new PropertyMetadata(default(double)));
 

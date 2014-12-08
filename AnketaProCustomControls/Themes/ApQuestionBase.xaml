@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:AnketaProCustomControls">
+    <SolidColorBrush x:Key="ApQuestionSelected" Color="#335AFF"></SolidColorBrush>
+    <Style x:Key="{x:Type local:ApQuestionBase}" TargetType="{x:Type local:ApQuestionBase}">
+        <Setter Property="Text" Value="Вопрос"></Setter>
+        <Setter Property="ApMargin" Value="3"></Setter>
+    </Style>
+</ResourceDictionary>

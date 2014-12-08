@@ -3,5 +3,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/AnketaProCustomControls;component/Themes/ApQuestion.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/AnketaProCustomControls;component/Themes/ApOneFromSetQuestion.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

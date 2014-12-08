@@ -32,8 +32,8 @@ namespace TestAnketaProCustomControls
         {
             var aQuest = new ApQuestion
             {
-                QuestionText = "вопdfgdsdрос",
-                Text = "ответ"
+                Text = "вопdfgdsdрос",
+                AnswerText = "ответ"
             };
             StackPanel.Children.Add(aQuest);
         }

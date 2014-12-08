@@ -14,15 +14,6 @@ namespace AnketaProCustomControls
             set { SetValue(AnketaModeProperty, value); }
         }
 
-        public static readonly DependencyProperty QuestionTextProperty = DependencyProperty.Register(
-            "QuestionText", typeof(string), typeof(ApQuestionBase), new PropertyMetadata(default(string)));
-
-        public string QuestionText
-        {
-            get { return (string)GetValue(QuestionTextProperty); }
-            set { SetValue(QuestionTextProperty, value); }
-        }
-
         private static readonly DependencyProperty IsMouseDoubleClickProperty = DependencyProperty.Register(
             "IsMouseDoubleClick", typeof(bool), typeof(ApQuestionBase), new PropertyMetadata(false));
 
@@ -30,6 +21,15 @@ namespace AnketaProCustomControls
         {
             get { return (bool) GetValue(IsMouseDoubleClickProperty); }
             set { SetValue(IsMouseDoubleClickProperty, value); }
+        }
+
+        public static readonly DependencyProperty ApMarginProperty = DependencyProperty.Register(
+            "ApMargin", typeof(Thickness), typeof(ApQuestionBase), new PropertyMetadata(default(Thickness)));
+
+        public Thickness ApMargin
+        {
+            get { return (Thickness)GetValue(ApMarginProperty); }
+            set { SetValue(ApMarginProperty, value); }
         }
     }
 }

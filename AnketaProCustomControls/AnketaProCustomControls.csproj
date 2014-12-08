@@ -48,6 +48,7 @@
     <Compile Include="ApQuestion.cs" />
     <Compile Include="ApQuestionBase.cs" />
     <Compile Include="Converters\GapConverter.cs" />
+    <Compile Include="Extensions\UIElementExt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -61,6 +62,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Themes\Dictionaries\ApOfsqResDic.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -78,6 +80,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\ApQuestion.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ApQuestionBase.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

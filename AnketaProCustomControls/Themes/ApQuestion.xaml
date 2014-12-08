@@ -2,7 +2,12 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:convert="clr-namespace:AnketaProCustomControls.Converters"
                     xmlns:local="clr-namespace:AnketaProCustomControls">
-    <Style x:Key="{x:Type local:ApQuestion}" TargetType="{x:Type local:ApQuestion}">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ApQuestionBase.xaml"></ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+    <Style x:Key="{x:Type local:ApQuestion}" 
+           TargetType="{x:Type local:ApQuestion}" 
+           BasedOn="{StaticResource {x:Type local:ApQuestionBase}}">
         <Style.Resources>
             <convert:GapConverter x:Key="GapConverter"></convert:GapConverter>
         </Style.Resources>
@@ -16,12 +21,10 @@
                             <RowDefinition Height="Auto"></RowDefinition>
                             <RowDefinition Height="Auto"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <TextBox x:Name="QuestionConstructor" Grid.Row="0"
-                                 Text="{Binding RelativeSource={RelativeSource TemplatedParent},
-                                                Path=QuestionText}"></TextBox>
-                        <TextBlock x:Name="QuestionSurvey" Grid.Row="0"
-                                   Text="{Binding RelativeSource={RelativeSource TemplatedParent},
-                                                Path=QuestionText}"></TextBlock>
+                        <TextBox x:Name="PART_TextBox" Grid.Row="0"
+                                 Text="{TemplateBinding Text}"></TextBox>
+                        <TextBlock x:Name="PART_TextBlock" Grid.Row="0"
+                                   Text="{TemplateBinding Text}"></TextBlock>
                         <TextBox Grid.Row="1"
                                  Text="{Binding RelativeSource={RelativeSource TemplatedParent},
                                                 Path=AnswerText}"
@@ -32,13 +35,13 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="AnketaMode" Value="Survey">
-                            <Setter TargetName="QuestionConstructor" Property="Visibility" Value="Collapsed"></Setter>
+                            <Setter TargetName="PART_TextBox" Property="Visibility" Value="Collapsed"></Setter>
                         </Trigger>
                         <Trigger Property="AnketaMode" Value="Test">
-                            <Setter TargetName="QuestionConstructor" Property="Visibility" Value="Collapsed"></Setter>
+                            <Setter TargetName="PART_TextBox" Property="Visibility" Value="Collapsed"></Setter>
                         </Trigger>
                         <Trigger Property="AnketaMode" Value="Constructor">
-                            <Setter TargetName="QuestionSurvey" Property="Visibility" Value="Collapsed"></Setter>
+                            <Setter TargetName="PART_TextBlock" Property="Visibility" Value="Collapsed"></Setter>
                         </Trigger>
                         <MultiTrigger></MultiTrigger>
                         <Trigger Property="IsMouseDoubleClick" Value="True">

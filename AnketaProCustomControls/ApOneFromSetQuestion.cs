@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
 
 namespace AnketaProCustomControls
 {
@@ -25,12 +24,7 @@ namespace AnketaProCustomControls
         #endregion
 
         #region Methods
-
-        private void AddButtonClick(object sender, RoutedEventArgs e)
-        {
-            var button = sender as Button;
-        }
-
+        
         #endregion
     }
 }
