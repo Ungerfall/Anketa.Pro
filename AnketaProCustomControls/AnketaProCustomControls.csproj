@@ -48,7 +48,7 @@
     <Compile Include="ApQuestion.cs" />
     <Compile Include="ApQuestionBase.cs" />
     <Compile Include="Converters\GapConverter.cs" />
-    <Compile Include="Extensions\UIElementExt.cs" />
+    <Compile Include="UIElementExt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

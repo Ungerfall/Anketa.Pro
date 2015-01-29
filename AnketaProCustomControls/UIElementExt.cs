@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace AnketaProCustomControls.Extensions
+namespace AnketaProCustomControls
 {
     internal static class UiElementExt
     {

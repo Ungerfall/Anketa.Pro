@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -93,9 +94,8 @@ namespace AnketaProSerializer
         public static void Deserialize(ref StackPanel stackPanel, String apSerializedText, DeserializeType dType)
         {
             var tokens = apSerializedText.Split(ToolsDivider);
-            foreach (var item in tokens)
+            foreach (var tokenParts in tokens.Select(GetTokensPart))
             {
-                var tokenParts = GetTokensPart(item);
                 switch (tokenParts.Item1)
                 {
                     case "Text":
