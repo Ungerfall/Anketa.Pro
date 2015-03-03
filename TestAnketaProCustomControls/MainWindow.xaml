@@ -5,8 +5,8 @@
         xmlns:apCustCtrls="clr-namespace:AnketaProCustomControls;assembly=AnketaProCustomControls">
     <Grid>
         <StackPanel x:Name="StackPanel">
-            <apCustCtrls:ApQuestion x:Name="ApQuestion"></apCustCtrls:ApQuestion>
-            <apCustCtrls:ApOneFromSetQuestion></apCustCtrls:ApOneFromSetQuestion>
+            <!--<apCustCtrls:ApQuestion x:Name="ApQuestion"></apCustCtrls:ApQuestion>
+            <apCustCtrls:ApOneFromSetQuestion></apCustCtrls:ApOneFromSetQuestion>-->
             <DockPanel>
                 <Button Content="Constructor" Click="ConstructorClick"></Button>
                 <Button Content="Survey" Click="SurveyClick"></Button>

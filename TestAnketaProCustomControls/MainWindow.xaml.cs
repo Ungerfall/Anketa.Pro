@@ -15,17 +15,14 @@ namespace TestAnketaProCustomControls
 
         private void ConstructorClick(object sender, RoutedEventArgs e)
         {
-            ApQuestion.AnketaMode = AnketaMode.Constructor;
         }
 
         private void SurveyClick(object sender, RoutedEventArgs e)
         {
-            ApQuestion.AnketaMode = AnketaMode.Survey;
         }
 
         private void TestClick(object sender, RoutedEventArgs e)
         {
-            ApQuestion.AnketaMode = AnketaMode.Test;
         }
 
         private void NewApQuestion(object sender, RoutedEventArgs e)

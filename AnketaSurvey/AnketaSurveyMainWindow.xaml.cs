@@ -44,7 +44,7 @@ namespace AnketaSurvey
             {
                 DefaultExt = ".anktpro",
                 Filter = "AnketaProSurvey documents (.anktpro)|*.anktpro",
-                InitialDirectory = AppDomain.CurrentDomain.BaseDirectory + "Surveys\\",
+                InitialDirectory = string.Format("{0}Surveys\\", AppDomain.CurrentDomain.BaseDirectory),
                 RestoreDirectory = true
             };
             var result = dlg.ShowDialog();
