@@ -6,4 +6,32 @@
         <Setter Property="Text" Value="Вопрос"></Setter>
         <Setter Property="ApMargin" Value="3"></Setter>
     </Style>
+    <Style x:Key="CueTextBoxStyle" TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+        <Style.Resources>
+            <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                <VisualBrush.Visual>
+                    <TextBlock Text="{DynamicResource CueText}" Foreground="LightGray" />
+                </VisualBrush.Visual>
+            </VisualBrush>
+        </Style.Resources>
+        <Style.Triggers>
+            <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+            </Trigger>
+            <Trigger Property="Text" Value="{x:Null}">
+                <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+            </Trigger>
+            <Trigger Property="IsMouseCaptured" Value="True">
+                <Setter Property="Background" Value="White" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="CueQuestionTextStyle" BasedOn="{StaticResource CueTextBoxStyle}" TargetType="TextBox">
+        <Style.Resources>
+            <StaticResource x:Key="CueText" ResourceKey="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CueAnswer}"></StaticResource>
+        </Style.Resources>
+    </Style>
+    <Style x:Key="CueAnswerTextStyle" BasedOn="{StaticResource CueTextBoxStyle}" TargetType="TextBox">
+        
+    </Style>
 </ResourceDictionary>

@@ -17,7 +17,7 @@ namespace AnketaProCustomControls
         #region Properties
 
         public static readonly DependencyProperty AnswerTextProperty = DependencyProperty.Register(
-            "AnswerText", typeof(string), typeof(ApQuestion), new PropertyMetadata(default(string)));
+            @"AnswerText", typeof(string), typeof(ApQuestion), new PropertyMetadata(default(string)));
 
         public string AnswerText
         {
@@ -26,7 +26,7 @@ namespace AnketaProCustomControls
         }
         
         public static readonly DependencyProperty GapProperty = DependencyProperty.Register(
-            "Gap", typeof (double), typeof (ApQuestion), new PropertyMetadata(default(double)));
+            @"Gap", typeof (double), typeof (ApQuestion), new PropertyMetadata(default(double)));
 
         public double Gap
         {
