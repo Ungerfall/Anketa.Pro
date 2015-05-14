@@ -4,7 +4,8 @@
         xmlns:converter="clr-namespace:AnketaPro.Converters"
         Title="Anketa.Pro" Height="600" Width="800"
         WindowStartupLocation="CenterScreen"
-        WindowStyle="SingleBorderWindow">
+        WindowStyle="SingleBorderWindow"
+        FontFamily="Segoe UI">
     <Window.Resources>
         <converter:MarginConverter x:Key="MarginConverter"/>
         <converter:StackPanelMaxWidthConverter x:Key="StackPanelMaxWidthConverter"/>
@@ -76,8 +77,22 @@
         </Menu>
         <ToolBar x:Name="MainTb" Background="White" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded" Grid.Row="1" Grid.ColumnSpan="4"
                  Grid.Column="0">
-            <Button Content="Новый"/>
-            <Button Content="Открыть"/>
+            <Button>
+                <StackPanel>
+                    <Border>
+                        <Image Source="{StaticResource ResourceKey=IconAddNewForm}" Width="42"></Image>
+                    </Border>
+                    <TextBlock TextAlignment="Center" TextWrapping="Wrap">Добавить<LineBreak/>форму</TextBlock>
+                </StackPanel>
+            </Button>
+            <Button>
+                <StackPanel>
+                    <Border>
+                        <Image Source="{StaticResource ResourceKey=IconOpenForm}" Width="42"></Image>
+                    </Border>
+                    <TextBlock TextAlignment="Center" TextWrapping="Wrap">Открыть<LineBreak/>форму</TextBlock>
+                </StackPanel>
+            </Button>
             <Separator/>
             <Button Content="Закрыть" Click="ButtonClose_Click"/>
             <Separator/>

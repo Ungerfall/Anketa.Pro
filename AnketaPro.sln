@@ -24,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Todo.txt = Todo.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnketaMedia", "AnketaMedia\AnketaMedia.csproj", "{20362F42-81B1-4542-82B6-CA6024FE622B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +56,10 @@ Global
 		{238D4BAF-4969-4E5A-AA15-EC4151114A13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{238D4BAF-4969-4E5A-AA15-EC4151114A13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{238D4BAF-4969-4E5A-AA15-EC4151114A13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20362F42-81B1-4542-82B6-CA6024FE622B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20362F42-81B1-4542-82B6-CA6024FE622B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20362F42-81B1-4542-82B6-CA6024FE622B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20362F42-81B1-4542-82B6-CA6024FE622B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
