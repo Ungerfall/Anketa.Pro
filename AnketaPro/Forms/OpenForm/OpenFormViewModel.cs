@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using AnketaPro.Forms.Common;
+using AnketaProDB;
 
 namespace AnketaPro.Forms.OpenForm
 {
@@ -8,7 +9,10 @@ namespace AnketaPro.Forms.OpenForm
         public OpenFormViewModel()
         {
             selectedOpenFormType = OpenFormType.MyForms;
+            client = new ApClient();
         }
+
+        private ApClient client;
 
         private OpenFormType selectedOpenFormType;
 
@@ -18,6 +22,22 @@ namespace AnketaPro.Forms.OpenForm
             set
             {
                 selectedOpenFormType = value;
+                if (selectedOpenFormType == OpenFormType.MyForms)
+                {
+                    
+                }
+                OnPropertyChanged();
+            }
+        }
+
+        private string id;
+
+        public string Id
+        {
+            get { return id; }
+            set
+            {
+                id = value;
                 OnPropertyChanged();
             }
         }

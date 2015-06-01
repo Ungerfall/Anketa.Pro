@@ -259,9 +259,9 @@ namespace AnketaPro.Forms.MainWindow
             var result = dlg.ShowDialog();
 
             if (result != true) return;
-            var serial = ApSerializer.Serialize(MainStackPanel.Children);
+            /*var serial = ApSerializer.Serialize(MainStackPanel.Children);
             using (var sw = new StreamWriter(dlg.FileName, false, Encoding.UTF8))
-                sw.Write(serial);
+                sw.Write(serial);*/
         }
 
         private void CallAnketaSurvey(object sender, RoutedEventArgs e)

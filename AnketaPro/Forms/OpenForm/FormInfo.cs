@@ -1,13 +1,12 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using AnketaPro.Annotations;
+﻿using AnketaPro.Forms.Common;
 
 namespace AnketaPro.Forms.OpenForm
 {
-    public class FormInfo : INotifyPropertyChanged
+    public class FormInfo : ViewModelBase
     {
         private string name;
 
+        [DbColumn("form_name")]
         public string Name
         {
             get { return name; }
@@ -20,6 +19,7 @@ namespace AnketaPro.Forms.OpenForm
 
         private string id;
 
+        [DbColumn("form_id")]
         public string Id
         {
             get { return id; }
@@ -32,6 +32,7 @@ namespace AnketaPro.Forms.OpenForm
 
         private string type;
 
+        [DbColumn("form_type")]
         public string Type
         {
             get { return type; }
@@ -40,15 +41,6 @@ namespace AnketaPro.Forms.OpenForm
                 type = value;
                 OnPropertyChanged();
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -78,7 +78,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\OpenForm\Converter.cs" />
+    <Compile Include="Forms\OpenForm\DbColumnAttribute.cs" />
     <Compile Include="Forms\OpenForm\FormInfo.cs" />
+    <Compile Include="Forms\OpenForm\IConverter.cs" />
     <Compile Include="Forms\OpenForm\OpenForm.xaml.cs">
       <DependentUpon>OpenForm.xaml</DependentUpon>
     </Compile>
@@ -100,6 +103,10 @@
     <ProjectReference Include="..\AnketaMedia\AnketaMedia.csproj">
       <Project>{20362f42-81b1-4542-82b6-ca6024fe622b}</Project>
       <Name>AnketaMedia</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AnketaProDB\AnketaProWebClient.csproj">
+      <Project>{238d4baf-4969-4e5a-aa15-ec4151114a13}</Project>
+      <Name>AnketaProWebClient</Name>
     </ProjectReference>
     <ProjectReference Include="..\AnketaProSerializer\AnketaProSerializer.csproj">
       <Project>{6ec0b197-63da-472d-b391-2dd71f9f58ee}</Project>

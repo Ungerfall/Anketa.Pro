@@ -51,7 +51,7 @@ namespace AnketaSurvey
             if (result != true) return;
             using (var sr = new StreamReader(dlg.FileName, Encoding.UTF8))
             {
-                ApSerializer.Deserialize(ref AsMainStackPanel, sr.ReadToEnd(), DeserializeType.Survey);
+                //ApSerializer.Deserialize(ref AsMainStackPanel, sr.ReadToEnd(), DeserializeType.Survey);
             }
         }
     }

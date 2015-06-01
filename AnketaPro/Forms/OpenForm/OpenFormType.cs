@@ -2,7 +2,8 @@
 {
     public enum OpenFormType
     {
+        FormById,
         MyForms,
-        Search
+        SearchForms
     }
 }

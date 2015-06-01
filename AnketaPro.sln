@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnketaSurvey", "AnketaSurve
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAnketaProCustomControls", "TestAnketaProCustomControls\TestAnketaProCustomControls.csproj", "{92A2192D-57EF-4D18-90E0-E8206A629856}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnketaProDB", "AnketaProDB\AnketaProDB.csproj", "{238D4BAF-4969-4E5A-AA15-EC4151114A13}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnketaProWebClient", "AnketaProDB\AnketaProWebClient.csproj", "{238D4BAF-4969-4E5A-AA15-EC4151114A13}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{52831F35-B011-49CF-AEED-3557ED0B831C}"
 	ProjectSection(SolutionItems) = preProject
