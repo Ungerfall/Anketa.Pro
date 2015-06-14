@@ -32,11 +32,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -46,6 +41,41 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\add_list-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\arrow_down-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\close_form-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\save_form-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\ie-32.png" />
+    <Resource Include="Icons\print-32.png" />
+    <Resource Include="Icons\solve-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\Grade_Record-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\Add_Row-32.png" />
+    <Resource Include="Icons\Delete_Row-32.png" />
+    <Resource Include="Icons\redo-32.png" />
+    <Resource Include="Icons\undo-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\add-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\QuickFormsIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\ok-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\cancel-32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -6,14 +6,14 @@ using AnketaProSerializer;
 
 namespace AnketaProDB
 {
-    public class ApClient
+    public class QuickFormsDbClient : IQuickFormsDbClient
     {
         private HttpWebRequest request;
         private JsonSerializer serializer;
         private readonly int port;
         private readonly string host;
 
-        public ApClient()
+        public QuickFormsDbClient()
         {
             port = 6892;
             host = "www.ungerfall-anketa.ru";

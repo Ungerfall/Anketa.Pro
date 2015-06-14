@@ -1,0 +1,82 @@
+﻿<Window x:Class="AnketaPro.View.OpenFormWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:service="clr-namespace:AnketaPro.Service"
+        xmlns:converters="clr-namespace:AnketaPro.Service.Converters"
+        xmlns:model="clr-namespace:AnketaPro.Model"
+        Title="Открыть форму" Height="300" Width="450"
+        Style="{StaticResource DialogWindowStyle}"
+        service:DialogCloser.DialogResult="{Binding DialogResult}">
+    <Window.Resources>
+        <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter"></converters:EnumToBooleanConverter>
+        <DataTemplate DataType="model:FormInfo" x:Key="FormInfoTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="{Binding Id}"></TextBlock>
+                <TextBlock Grid.Column="1" Text="{Binding Name}"></TextBlock>
+                <TextBlock Grid.Column="2" Text="{Binding Type}"></TextBlock>
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid Style="{StaticResource DialogWindowGridStyle}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Margin="0,0,0,5">
+            <RadioButton GroupName="FormOptions" Content="Мои формы" IsChecked="{Binding 
+                    Path=SelectedOpenFormType, 
+                    Converter={StaticResource EnumToBooleanConverter}, 
+                    ConverterParameter={x:Static service:OpenFormType.MyForms}}"></RadioButton>
+            <RadioButton GroupName="FormOptions" Content="Поиск" IsChecked="{Binding 
+                    Path=SelectedOpenFormType, 
+                    Converter={StaticResource EnumToBooleanConverter}, 
+                    ConverterParameter={x:Static service:OpenFormType.SearchForms}}"></RadioButton>
+        </StackPanel>
+        <TextBox Grid.Row="1">
+            <TextBox.Style>
+                <Style BasedOn="{StaticResource AnimatedTextBox}" TargetType="TextBox">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SelectedOpenFormType}" Value="{x:Static service:OpenFormType.SearchForms}">
+                            <Setter Property="Visibility" Value="Visible"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+        <StackPanel Grid.Row="2">
+            <TextBlock Text="Доступные формы:" Style="{StaticResource DialogWindowHeaderStyle}"></TextBlock>
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ListBox ItemTemplate="{DynamicResource FormInfoTemplate}" 
+                     ItemsSource="{Binding AvailableForms}"
+                     SelectedItem="{Binding SelectedForm}">
+                    <ListBox.Style>
+                        <Style TargetType="ListBox">
+                            <Setter Property="Visibility" Value="Visible"></Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding AvailableForms}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListBox.Style>
+                </ListBox>
+            </ScrollViewer>
+        </StackPanel>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1" Content="Открыть" Margin="0,0,10,0"></Button>
+            <Button Grid.Column="2" Content="Отмена"></Button>
+        </Grid>
+    </Grid>
+</Window>

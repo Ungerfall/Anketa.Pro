@@ -33,8 +33,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>QuickFormsIcon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xaml">
@@ -49,7 +53,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Forms\MainWindow\MainWindow.xaml">
+    <Page Include="View\CreateFormWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -57,18 +65,46 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Converters\MarginConverter.cs" />
-    <Compile Include="Converters\StackPanelMaxWidthConverter.cs" />
-    <Compile Include="Forms\Common\ViewModelBase.cs" />
-    <Compile Include="Forms\MainWindow\MainWindow.xaml.cs">
+    <Compile Include="Model\GradeRecord.cs" />
+    <Compile Include="Model\GradeRecordStudent.cs" />
+    <Compile Include="Model\Person.cs" />
+    <Compile Include="Model\Student.cs" />
+    <Compile Include="Service\GradeRecordService.cs" />
+    <Compile Include="Service\DialogCloser.cs" />
+    <Compile Include="Service\DialogService.cs" />
+    <Compile Include="Service\FrameworkDialogs\FileDialogViewModel.cs" />
+    <Compile Include="Service\FrameworkDialogs\IFileDialog.cs" />
+    <Compile Include="Service\FrameworkDialogs\OpenFile\IOpenFileDialog.cs" />
+    <Compile Include="Service\FrameworkDialogs\OpenFile\OpenFileDialog.cs" />
+    <Compile Include="Service\FrameworkDialogs\OpenFile\OpenFileDialogViewModel.cs" />
+    <Compile Include="Service\FrameworkDialogs\WindowWrapper.cs" />
+    <Compile Include="Service\IDialogService.cs" />
+    <Compile Include="Service\DialogServiceContract.cs" />
+    <Compile Include="Service\IDialogWindow.cs" />
+    <Compile Include="Service\IWindowViewModelMappings.cs" />
+    <Compile Include="Service\IWindowViewModelMappingsContract.cs" />
+    <Compile Include="Service\ServiceLocator.cs" />
+    <Compile Include="ViewModel\RelayCommand.cs" />
+    <Compile Include="Service\Converters\MarginConverter.cs" />
+    <Compile Include="Service\Converters\StackPanelMaxWidthConverter.cs" />
+    <Compile Include="Service\Converters\EnumToBooleanConverter.cs" />
+    <Compile Include="Service\FormType.cs" />
+    <Compile Include="Service\IForm.cs" />
+    <Compile Include="Service\IGradeRecordService.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="ViewModel\CreateFormViewModel.cs" />
+    <Compile Include="View\CreateFormWindow.xaml.cs">
+      <DependentUpon>CreateFormWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Forms\OpenForm\OpenForm.xaml">
+    <Page Include="View\OpenFormWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Forms\RegistrationForm\RegistrationForm.xaml">
+    <Page Include="View\RegistrationForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -76,18 +112,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Resources\Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\OpenForm\Converter.cs" />
-    <Compile Include="Forms\OpenForm\DbColumnAttribute.cs" />
-    <Compile Include="Forms\OpenForm\FormInfo.cs" />
-    <Compile Include="Forms\OpenForm\IConverter.cs" />
-    <Compile Include="Forms\OpenForm\OpenForm.xaml.cs">
-      <DependentUpon>OpenForm.xaml</DependentUpon>
+    <Compile Include="Service\Converter.cs" />
+    <Compile Include="Service\DbColumnAttribute.cs" />
+    <Compile Include="Model\FormInfo.cs" />
+    <Compile Include="Service\IConverter.cs" />
+    <Compile Include="View\OpenFormWindow.xaml.cs">
+      <DependentUpon>OpenFormWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\OpenForm\OpenFormType.cs" />
-    <Compile Include="Forms\OpenForm\OpenFormViewModel.cs" />
-    <Compile Include="Forms\RegistrationForm\RegistrationForm.xaml.cs">
+    <Compile Include="Service\OpenFormType.cs" />
+    <Compile Include="ViewModel\OpenFormViewModel.cs" />
+    <Compile Include="View\RegistrationForm.xaml.cs">
       <DependentUpon>RegistrationForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\Annotations.cs" />
@@ -108,17 +148,42 @@
       <Project>{238d4baf-4969-4e5a-aa15-ec4151114a13}</Project>
       <Name>AnketaProWebClient</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AnketaProSerializer\AnketaProSerializer.csproj">
-      <Project>{6ec0b197-63da-472d-b391-2dd71f9f58ee}</Project>
-      <Name>AnketaProSerializer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\AnketaSurvey\AnketaSurvey.csproj">
       <Project>{727bd7fc-0fd6-4826-b808-71babf81e2c3}</Project>
       <Name>AnketaSurvey</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Tools\" />
+    <Resource Include="QuickFormsIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using AnketaProSerializer;
+using Microsoft.Win32;
 
 namespace AnketaSurvey
 {
@@ -40,7 +40,7 @@ namespace AnketaSurvey
 
         private void LoadSurvey(object sender, RoutedEventArgs e)
         {
-            var dlg = new Microsoft.Win32.OpenFileDialog
+            var dlg = new OpenFileDialog
             {
                 DefaultExt = ".anktpro",
                 Filter = "AnketaProSurvey documents (.anktpro)|*.anktpro",

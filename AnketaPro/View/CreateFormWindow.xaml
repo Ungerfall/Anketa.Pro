@@ -1,0 +1,85 @@
+﻿<Window x:Class="AnketaPro.View.CreateFormWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:service="clr-namespace:AnketaPro.Service"
+        xmlns:converters="clr-namespace:AnketaPro.Service.Converters"
+        Title="CreateFormWindow" Height="300" Width="400"
+        FontSize="14" Style="{StaticResource DialogWindowStyle}"
+        service:DialogCloser.DialogResult="{Binding DialogResult}">
+    <Window.Resources>
+        <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter"></converters:EnumToBooleanConverter>
+    </Window.Resources>
+    <Grid Style="{StaticResource DialogWindowGridStyle}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Margin="0,0,0,10">
+            <TextBlock Text="Тип формы" Style="{StaticResource DialogWindowHeaderStyle}"></TextBlock>
+            <DockPanel>
+                <RadioButton VerticalContentAlignment="Center" Content="Анкета" Margin="0,0,10,0" IsChecked="{Binding 
+                    Path=FormType, 
+                    Converter={StaticResource EnumToBooleanConverter}, 
+                    ConverterParameter={x:Static service:FormType.Anketa}}"></RadioButton>
+                <RadioButton VerticalContentAlignment="Center" Content="Тест" IsChecked="{Binding 
+                    Path=FormType, 
+                    Converter={StaticResource EnumToBooleanConverter}, 
+                    ConverterParameter={x:Static service:FormType.Test}}"></RadioButton>
+            </DockPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Margin="0,0,0,10">
+            <TextBlock Text="Название" Style="{StaticResource DialogWindowHeaderStyle}"></TextBlock>
+            <TextBox Style="{StaticResource CueTextBoxStyle}" Text="{Binding FormName}"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Margin="0,0,0,10">
+            <TextBlock Text="Ведомость" Style="{StaticResource DialogWindowHeaderStyle}"></TextBlock>
+            <DockPanel>
+                <Button Width="22" HorizontalAlignment="Left" ToolTip="Добавить ведомость">
+                    <Image Source="{StaticResource ResourceKey=AddButton}"></Image>
+                </Button>
+                <TextBlock Text="{Binding GradeRecordName}" Margin="20,0,0,0"></TextBlock>
+            </DockPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="3">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="1" Content="{Binding ActionButtonName}" Margin="0,0,10,0"></Button>
+                <Button Grid.Column="2" Content="Отмена"></Button>
+            </Grid>
+            <DockPanel Margin="0,10,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image Width="15" Source="{StaticResource OkButton}"></Image>
+                <TextBlock Margin="15,0,0,0" Text="Форма успешно создана"></TextBlock>
+                <DockPanel.Style>
+                    <Style TargetType="DockPanel">
+                        <Setter Property="Visibility" Value="Collapsed"></Setter>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding CreateFormResult}" Value="true">
+                                <Setter Property="Visibility" Value="Visible"></Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DockPanel.Style>
+            </DockPanel>
+            <DockPanel Margin="0,10,0,0" HorizontalAlignment="Center">
+                <Image Source="{StaticResource CancelButton}" Width="15"></Image>
+                <TextBlock Margin="15,0,0,0" Text="Ошибка при создании формы"></TextBlock>
+                <DockPanel.Style>
+                    <Style TargetType="DockPanel">
+                        <Setter Property="Visibility" Value="Collapsed"></Setter>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding CreateFormResult}" Value="false">
+                                <Setter Property="Visibility" Value="Visible"></Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DockPanel.Style>
+            </DockPanel>
+        </StackPanel>
+    </Grid>
+</Window>

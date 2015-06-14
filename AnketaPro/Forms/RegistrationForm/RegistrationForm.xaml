@@ -1,9 +1,0 @@
-﻿<Window x:Class="AnketaPro.Forms.RegistrationForm.RegistrationForm"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Регистрация пользователя" Height="300" Width="300"
-        ResizeMode="NoResize" FontFamily="Segoe UI">
-    <Grid>
-        
-    </Grid>
-</Window>

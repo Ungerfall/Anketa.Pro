@@ -2,4 +2,19 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <BitmapImage x:Key="IconAddNewForm" UriSource="/AnketaMedia;component/Icons/add_list-32.png"></BitmapImage>
     <BitmapImage x:Key="IconOpenForm" UriSource="/AnketaMedia;component/Icons/open-32.png"></BitmapImage>
+    <BitmapImage x:Key="ApplicationIcon" UriSource="/AnketaMedia;component/Icons/QuickFormsIcon.png"></BitmapImage>
+    <BitmapImage x:Key="ArrowDownIcon" UriSource="/AnketaMedia;component/Icons/arrow_down-32.png"></BitmapImage>
+    <BitmapImage x:Key="IconCloseForm" UriSource="/AnketaMedia;component/Icons/close_form-32.png"></BitmapImage>
+    <BitmapImage x:Key="IconSaveForm" UriSource="/AnketaMedia;component/Icons/save_form-32.png"></BitmapImage>
+    <BitmapImage x:Key="IconSolveForm" UriSource="/AnketaMedia;component/Icons/solve-32.png"></BitmapImage>
+    <BitmapImage x:Key="IconGetWebForm" UriSource="/AnketaMedia;component/Icons/ie-32.png"></BitmapImage>
+    <BitmapImage x:Key="IconPrintForm" UriSource="/AnketaMedia;component/Icons/print-32.png"></BitmapImage>
+    <BitmapImage x:Key="IconGradeRecord" UriSource="/AnketaMedia;component/Icons/Grade_Record-32.png"></BitmapImage>
+    <BitmapImage x:Key="IconUndo" UriSource="/AnketaMedia;component/Icons/undo-32.png"></BitmapImage>
+    <BitmapImage x:Key="IconRedo" UriSource="/AnketaMedia;component/Icons/redo-32.png"></BitmapImage>
+    <BitmapImage x:Key="IconAddElement" UriSource="/AnketaMedia;component/Icons/Add_Row-32.png"></BitmapImage>
+    <BitmapImage x:Key="IconDeleteElement" UriSource="/AnketaMedia;component/Icons/Delete_Row-32.png"></BitmapImage>
+    <BitmapImage x:Key="AddButton" UriSource="/AnketaMedia;component/Icons/add-32.png"></BitmapImage>
+    <BitmapImage x:Key="OkButton" UriSource="/AnketaMedia;component/Icons/ok-32.png"></BitmapImage>
+    <BitmapImage x:Key="CancelButton" UriSource="/AnketaMedia;component/Icons/cancel-32.png"></BitmapImage>
 </ResourceDictionary>

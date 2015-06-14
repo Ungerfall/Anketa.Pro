@@ -26,6 +26,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnketaMedia", "AnketaMedia\AnketaMedia.csproj", "{20362F42-81B1-4542-82B6-CA6024FE622B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickFormsTest", "QuickFormsTest\QuickFormsTest.csproj", "{BB240824-93BF-4454-9811-785A9772C17D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,6 +62,10 @@ Global
 		{20362F42-81B1-4542-82B6-CA6024FE622B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20362F42-81B1-4542-82B6-CA6024FE622B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20362F42-81B1-4542-82B6-CA6024FE622B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB240824-93BF-4454-9811-785A9772C17D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB240824-93BF-4454-9811-785A9772C17D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB240824-93BF-4454-9811-785A9772C17D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB240824-93BF-4454-9811-785A9772C17D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,17 +4,11 @@ namespace AnketaProCustomControls
 {
     public class ApQuestion : ApQuestionBase
     {
-        #region Constructors
-
         static ApQuestion()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof (ApQuestion),
                 new FrameworkPropertyMetadata(typeof (ApQuestion)));
         }
-
-        #endregion
-
-        #region Properties
 
         public static readonly DependencyProperty AnswerTextProperty = DependencyProperty.Register(
             @"AnswerText", typeof(string), typeof(ApQuestion), new PropertyMetadata(default(string)));
@@ -33,15 +27,5 @@ namespace AnketaProCustomControls
             get { return (double) GetValue(GapProperty); }
             set { SetValue(GapProperty, value); }
         }
-
-        #endregion
-
-        #region Methods
-        
-        #endregion
-
-        #region Events
-
-        #endregion
     }
 }
