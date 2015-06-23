@@ -17,4 +17,6 @@
     <BitmapImage x:Key="AddButton" UriSource="/AnketaMedia;component/Icons/add-32.png"></BitmapImage>
     <BitmapImage x:Key="OkButton" UriSource="/AnketaMedia;component/Icons/ok-32.png"></BitmapImage>
     <BitmapImage x:Key="CancelButton" UriSource="/AnketaMedia;component/Icons/cancel-32.png"></BitmapImage>
+    <BitmapImage x:Key="UpElement" UriSource="/AnketaMedia;component/Icons/up-32.png"></BitmapImage>
+    <BitmapImage x:Key="DownElement" UriSource="/AnketaMedia;component/Icons/down-32.png"></BitmapImage>
 </ResourceDictionary>

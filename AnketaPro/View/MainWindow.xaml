@@ -2,8 +2,11 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:converters="clr-namespace:AnketaPro.Service.Converters"
+        xmlns:service="clr-namespace:AnketaPro.Service"
+        service:DialogService.IsRegisteredView="True"
         Title="QuickForms" Height="600" Width="800"
         WindowStartupLocation="CenterScreen"
+        
         WindowStyle="SingleBorderWindow" Icon="{StaticResource ApplicationIcon}"
         Style="{StaticResource WindowStyle}">
     <Window.Resources>
@@ -70,7 +73,7 @@
         </Grid>
         <ToolBar x:Name="MainTb" Background="White" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded" Grid.Row="1"
                  Grid.Column="0">
-            <Button Click="CreateFormClick">
+            <Button Command="{Binding CreateFormCommand}">
                 <StackPanel>
                     <Border>
                         <Image Source="{StaticResource ResourceKey=IconAddNewForm}" Width="42"></Image>
@@ -78,7 +81,7 @@
                     <TextBlock TextAlignment="Center" TextWrapping="Wrap">Создать</TextBlock>
                 </StackPanel>
             </Button>
-            <Button Click="OpenFormClick">
+            <Button Command="{Binding OpenFormCommand}">
                 <StackPanel>
                     <Border>
                         <Image Source="{StaticResource ResourceKey=IconOpenForm}" Width="42"></Image>
@@ -86,7 +89,7 @@
                     <TextBlock TextAlignment="Center" TextWrapping="Wrap">Открыть</TextBlock>
                 </StackPanel>
             </Button>
-            <Button>
+            <Button Command="{Binding CloseFormCommand}">
                 <StackPanel>
                     <Border>
                         <Image Source="{StaticResource ResourceKey=IconCloseForm}" Width="42"></Image>
@@ -94,7 +97,7 @@
                     <TextBlock TextAlignment="Center" TextWrapping="Wrap">Закрыть</TextBlock>
                 </StackPanel>
             </Button>
-            <Button>
+            <Button Command="{Binding SaveFormCommand}">
                 <StackPanel>
                     <Border>
                         <Image Source="{StaticResource ResourceKey=IconSaveForm}" Width="42"></Image>
@@ -155,8 +158,14 @@
                     <Button Background="Transparent">
                         <Image Source="{StaticResource IconAddElement}"></Image>
                     </Button>
-                    <Button Margin="3,0" Background="Transparent">
+                    <Button Margin="3,0,10,0" Background="Transparent">
                         <Image Source="{StaticResource IconDeleteElement}"></Image>
+                    </Button>
+                    <Button Background="Transparent">
+                        <Image Source="{StaticResource UpElement}"></Image>
+                    </Button>
+                    <Button Margin="3,0,10,0" Background="Transparent">
+                        <Image Source="{StaticResource DownElement}"></Image>
                     </Button>
                     <Button Background="Transparent">
                         <Image Source="{StaticResource IconUndo}"></Image>

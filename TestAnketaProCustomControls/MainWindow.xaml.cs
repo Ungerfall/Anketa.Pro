@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using AnketaProCustomControls;
 
 namespace TestAnketaProCustomControls
 {
@@ -13,26 +12,9 @@ namespace TestAnketaProCustomControls
             InitializeComponent();
         }
 
-        private void ConstructorClick(object sender, RoutedEventArgs e)
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-        }
-
-        private void SurveyClick(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void TestClick(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void NewApQuestion(object sender, RoutedEventArgs e)
-        {
-            var aQuest = new ApQuestion
-            {
-                Text = "вопdfgdsdрос",
-                AnswerText = "ответ"
-            };
-            StackPanel.Children.Add(aQuest);
+            Question.IsSelected = !Question.IsSelected;
         }
     }
 }

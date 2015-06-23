@@ -242,6 +242,7 @@ namespace AnketaPro.Service
 			// Create dialog and set properties
 			var dialog = (Window)Activator.CreateInstance(dialogType);
 			dialog.Owner = FindOwnerWindow(ownerViewModel);
+            dialog.WindowStartupLocation = WindowStartupLocation.CenterOwner;
 			dialog.DataContext = viewModel;
 
 			// Show dialog

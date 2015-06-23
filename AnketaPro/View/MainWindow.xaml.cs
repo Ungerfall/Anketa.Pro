@@ -16,6 +16,7 @@ namespace AnketaPro.View
     public partial class MainWindow
     {
         #region Fields
+
         #endregion
 
         public MainWindow()
@@ -37,7 +38,7 @@ namespace AnketaPro.View
             }
 
             if (toolBar == null) return;
-            var mainPanelBorder =  toolBar.Template.FindName("MainPanelBorder", toolBar) as FrameworkElement;
+            var mainPanelBorder = toolBar.Template.FindName("MainPanelBorder", toolBar) as FrameworkElement;
             if (mainPanelBorder != null)
             {
                 mainPanelBorder.Margin = new Thickness(0);
@@ -109,8 +110,8 @@ namespace AnketaPro.View
                 var button = (Button) o;
                 var currentrow = Grid.GetRow(button);
                 grid.RowDefinitions.Add(new RowDefinition());
-                var newradio = new RadioButton { VerticalAlignment = VerticalAlignment.Center };
-                var newanswer = new TextBox { AcceptsReturn = true };
+                var newradio = new RadioButton {VerticalAlignment = VerticalAlignment.Center};
+                var newanswer = new TextBox {AcceptsReturn = true};
                 Grid.SetRow(button, currentrow + 1);
                 grid.Children.Add(newradio);
                 Grid.SetColumn(newradio, 0);
@@ -147,7 +148,7 @@ namespace AnketaPro.View
                 Name = "SeveralFromList",
                 Margin = new Thickness(0, 5, 0, 5)
             };
-            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            grid.ColumnDefinitions.Add(new ColumnDefinition {Width = GridLength.Auto});
             grid.ColumnDefinitions.Add(new ColumnDefinition());
             grid.RowDefinitions.Add(new RowDefinition());
             grid.RowDefinitions.Add(new RowDefinition());
@@ -157,16 +158,16 @@ namespace AnketaPro.View
                 Text = "Вопрос",
                 AcceptsReturn = true
             };
-            var check = new CheckBox { VerticalAlignment = VerticalAlignment.Center };
-            var answer = new TextBox { AcceptsReturn = true };
-            var addvariant = new Button { Content = "Добавить вариант", HorizontalAlignment = HorizontalAlignment.Center };
+            var check = new CheckBox {VerticalAlignment = VerticalAlignment.Center};
+            var answer = new TextBox {AcceptsReturn = true};
+            var addvariant = new Button {Content = "Добавить вариант", HorizontalAlignment = HorizontalAlignment.Center};
             addvariant.Click += (o, args) =>
             {
-                var button = (Button)o;
+                var button = (Button) o;
                 var currentrow = Grid.GetRow(button);
                 grid.RowDefinitions.Add(new RowDefinition());
-                var newcheck = new CheckBox { VerticalAlignment = VerticalAlignment.Center };
-                var newanswer = new TextBox { AcceptsReturn = true };
+                var newcheck = new CheckBox {VerticalAlignment = VerticalAlignment.Center};
+                var newanswer = new TextBox {AcceptsReturn = true};
                 Grid.SetRow(button, currentrow + 1);
                 grid.Children.Add(newcheck);
                 Grid.SetColumn(newcheck, 0);
@@ -243,7 +244,7 @@ namespace AnketaPro.View
         {
             MainStackPanel.Children.Clear();
         }
-        
+
         private void SaveSurveyClick(object sender, RoutedEventArgs e)
         {
             var dlg = new SaveFileDialog
@@ -267,26 +268,6 @@ namespace AnketaPro.View
         {
             var survey = new AnketaSurveyMainWindow();
             survey.ShowDialog();
-        }
-
-        private void CreateFormClick(object sender, RoutedEventArgs e)
-        {
-            var createFormWindow = new CreateFormWindow
-            {
-                Owner = this,
-                WindowStartupLocation = WindowStartupLocation.CenterOwner
-            };
-            createFormWindow.ShowDialog();
-        }
-
-        private void OpenFormClick(object sender, RoutedEventArgs e)
-        {
-            var openFormWindow = new OpenFormWindow
-            {
-                Owner = this,
-                WindowStartupLocation = WindowStartupLocation.CenterOwner
-            };
-            openFormWindow.ShowDialog();
         }
     }
 }

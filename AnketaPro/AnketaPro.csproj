@@ -65,10 +65,19 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Model\AnketaMany.cs" />
+    <Compile Include="Model\AnketaOne.cs" />
+    <Compile Include="Model\AnketaText.cs" />
     <Compile Include="Model\GradeRecord.cs" />
     <Compile Include="Model\GradeRecordStudent.cs" />
+    <Compile Include="Model\IListQuestion.cs" />
+    <Compile Include="Model\ImageQuestion.cs" />
     <Compile Include="Model\Person.cs" />
+    <Compile Include="Model\QuestionBase.cs" />
     <Compile Include="Model\Student.cs" />
+    <Compile Include="Model\TestMany.cs" />
+    <Compile Include="Model\TestOne.cs" />
+    <Compile Include="Model\TestText.cs" />
     <Compile Include="Service\GradeRecordService.cs" />
     <Compile Include="Service\DialogCloser.cs" />
     <Compile Include="Service\DialogService.cs" />
@@ -81,9 +90,12 @@
     <Compile Include="Service\IDialogService.cs" />
     <Compile Include="Service\DialogServiceContract.cs" />
     <Compile Include="Service\IDialogWindow.cs" />
+    <Compile Include="Service\ITestService.cs" />
     <Compile Include="Service\IWindowViewModelMappings.cs" />
     <Compile Include="Service\IWindowViewModelMappingsContract.cs" />
     <Compile Include="Service\ServiceLocator.cs" />
+    <Compile Include="Service\WindowViewModelMappings.cs" />
+    <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="Service\Converters\MarginConverter.cs" />
     <Compile Include="Service\Converters\StackPanelMaxWidthConverter.cs" />

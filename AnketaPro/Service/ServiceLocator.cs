@@ -7,7 +7,7 @@ namespace AnketaPro.Service
 	/// <summary>
 	/// A very simple service locator.
 	/// </summary>
-	static class ServiceLocator
+	public static class ServiceLocator
 	{
 		private static Dictionary<Type, ServiceInfo> services = new Dictionary<Type, ServiceInfo>();
 
